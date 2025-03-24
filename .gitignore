@@ -1,4 +1,5 @@
 /.metadata/
-# Ignorišemo lokalne konfiguracione fajlove sa šiframa
+
 application-petra.properties
 application-aca.properties
+application.properties
