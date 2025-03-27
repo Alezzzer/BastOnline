@@ -1,6 +1,9 @@
 package com.example.basta.dtos;
 
 import java.util.Date;
+import java.util.List;
+
+import com.example.basta.entity.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,4 +19,5 @@ public class OrderDto {
 	    private Boolean approved;
 	    private double finalPrice;
 	    private Date orderDate;
+	    private List<Product> products;
 }
