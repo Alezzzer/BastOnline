@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 
 		@Override
 		public CartDto addProductToCart(Long userId, Long productId, double quantity) {
-			 Cart cart = getOrCreateCart(userId);  // Uzmi ili kreiraj korpu
+			 Cart cart = getOrCreateCart(userId);  
 			    Product product = productRepo.findById(productId)
 			            .orElseThrow(() -> new RuntimeException("Product not found"));
 

@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("api/basta")
+@RequestMapping("api/farm")
 @AllArgsConstructor
 public class UserController {
 	
@@ -43,6 +43,13 @@ public class UserController {
 		return new ResponseEntity<>(updatedUser,HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/myprofile/{id}/orders")
+	 public ResponseEntity<List<OrderDto>> getAllOrders(@PathVariable Long id){
+		 List<OrderDto> orders = userService.orders(id);
+		 return ResponseEntity.ok(orders);
+	 }
+	 
 	
 	@GetMapping("/vegetables")
 	public ResponseEntity<List<ProductDto>> allVegetables(){
@@ -80,11 +87,6 @@ public class UserController {
 	     return ResponseEntity.ok(order);
 	 }
 	 
-	 @GetMapping("/myprofile/{id}/orders")
-	 public ResponseEntity<List<OrderDto>> getAllOrders(@PathVariable Long id){
-		 List<OrderDto> orders = userService.orders(id);
-		 return ResponseEntity.ok(orders);
-	 }
 	 
 
 }
