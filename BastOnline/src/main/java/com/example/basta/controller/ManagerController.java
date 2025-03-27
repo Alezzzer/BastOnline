@@ -21,7 +21,7 @@ import com.example.basta.service.ManagerService;
 public class ManagerController {
 	@Autowired
 	private ManagerService ms;
-	
+	//komentar test
 	@GetMapping("getOrder/{id}")
 	public ResponseEntity<OrderManagerDto> getOrderById(@PathVariable("id") Long orderId){
 		OrderManagerDto orderMDto = ms.getOrder(orderId);
