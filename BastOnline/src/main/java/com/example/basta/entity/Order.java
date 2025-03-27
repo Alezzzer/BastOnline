@@ -31,9 +31,9 @@ public class Order {
 
     private Boolean approved;
 
-    private Double finalPrice;
+    private double finalPrice;
 
-    private Double finalKilos;
+    
     private Date orderDate;
     
     @ManyToOne

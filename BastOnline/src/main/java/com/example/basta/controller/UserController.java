@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.basta.dtos.CartDto;
+import com.example.basta.dtos.OrderDto;
 import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
 import com.example.basta.service.UserService;
@@ -60,17 +62,29 @@ public class UserController {
 	        return ResponseEntity.ok(cart);
 	    }
 	 
-	 @PostMapping("/{userId}/addToCart/{productId}")
-	    public ResponseEntity<CartDto> addProduct(@PathVariable Long userId, @PathVariable Long productId) {
-	       CartDto cart = userService.addProductToCart(userId, productId);
-		 return ResponseEntity.ok(cart);
+	 @PostMapping("/{userId}/add/{productId}")
+	    public ResponseEntity<CartDto> addProductToCart(@PathVariable Long userId,@PathVariable Long productId, @RequestParam double quantity) {
+	        CartDto updatedCart = userService.addProductToCart(userId, productId, quantity);
+	        return ResponseEntity.ok(updatedCart);
 	    }
 	 
-	 @DeleteMapping("/{userId}/removeFromCart/{productId}")
-	    public ResponseEntity<CartDto> removeProduct(@PathVariable Long userId, @PathVariable Long productId) {
-	       CartDto cart = userService.removeProductFromCart(userId, productId);
-	       return ResponseEntity.ok(cart);
+	 @DeleteMapping("/{userId}/remove/{productId}")
+	    public ResponseEntity<CartDto> removeProductFromCart(@PathVariable Long userId, @PathVariable Long productId) {
+	        CartDto updatedCart = userService.removeProductFromCart(userId, productId);
+	        return ResponseEntity.ok(updatedCart);
 	    }
+	 
+	 @PostMapping("/cart/order/{userId}")
+	 public ResponseEntity<OrderDto> createOrder(@PathVariable Long userId) {
+	     OrderDto order = userService.createOrderFromCart(userId);
+	     return ResponseEntity.ok(order);
+	 }
+	 
+	 @GetMapping("/myprofile/{id}/orders")
+	 public ResponseEntity<List<OrderDto>> getAllOrders(@PathVariable Long id){
+		 List<OrderDto> orders = userService.orders(id);
+		 return ResponseEntity.ok(orders);
+	 }
 	 
 
 }

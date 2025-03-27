@@ -14,7 +14,6 @@ import lombok.Setter;
 public class OrderDto {
 	 	private Long id;
 	    private Boolean approved;
-	    private Double finalPrice;
-	    private Double finalKilos;
+	    private double finalPrice;
 	    private Date orderDate;
 }
