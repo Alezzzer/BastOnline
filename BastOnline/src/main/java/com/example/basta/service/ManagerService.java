@@ -1,7 +1,11 @@
 package com.example.basta.service;
 
-import com.example.basta.dtos.OrderDto;
+import java.util.List;
+
+import com.example.basta.dtos.OrderManagerDto;
 
 public interface ManagerService {
-	OrderDto createOrder(OrderDto orderDto);
+	OrderManagerDto getOrder(Long id);
+	List<OrderManagerDto> getOrders();
+	OrderManagerDto approve(Long id);
 }

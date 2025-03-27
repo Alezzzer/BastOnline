@@ -10,15 +10,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDto {
-	 	private Long id;
-	    private Boolean approved;
-	    private double finalPrice;
-	    private Date orderDate;
-	    private List<Product> products;
+public class OrderManagerDto {
+    private Boolean approved;
+    private double finalPrice;
+    private Date orderDate;
+    private String userName;
+    private String userEmail;
+    private String userAddress;
+    private String userPhone;
+    private List<Product> products;
+   
 }
