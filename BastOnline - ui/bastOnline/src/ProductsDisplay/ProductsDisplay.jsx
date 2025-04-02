@@ -4,21 +4,20 @@ import { StoreContext } from '../context/StoreContext'
 import { product_list } from '../assets/assets'
 import ProductItem from '../components/ProductItem/ProductItem'
 
-const ProductsDisplay = (category) => {
+const ProductsDisplay = ({category}) => {
 
     const{product_list} = useContext(StoreContext)
-
-
 
   return (
     <div className='products-display' id='products-display'>
         <div className="product-display-list">
             {product_list.map((item,index)=>{
-              {console.log(category, item.category);}
-              if(category==="All" || category===item.category){
+              
+             if(category==="All" || category===item.category){
+              {console.log(category,item.category);}
                 return <ProductItem key={index} id={item._id} name={item.name} 
-                      description={item.description} price={item.price} image={item.image}/>
-              }
+                      description={item.description} price={item.price} image={item.image}/>}
+              
 })}
         </div>
     </div>
