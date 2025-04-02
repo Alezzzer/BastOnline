@@ -1,27 +1,37 @@
 import React, { useState } from 'react'
 import './Navbar.css'
 import { assets } from '../../assets/assets'
-const Navbar = () => {
+import { Link } from 'react-router-dom';
+
+const Navbar = ({setShowLogin}) => {
     const [menu,setMenu] = useState("home");
-  return (
-    <div className='navbar'>
-        <img src = {assets.logo} alt="" className="logo" />
-        <ul className="navbar-menu">
-            <li onClick ={() => setMenu("home")} className={menu==="home"?"active":""}>Home</li>
-            <li onClick ={() => setMenu("products")} className={menu==="products"?"active":""}>Products </li>
-            <li onClick ={() => setMenu("contactUs")} className={menu==="contactUs"?"active":""}>Contact us</li>
-        </ul>
-        <div className='navbar-right'>
-           <img src= {assets.searchIcon} alt="" width="40" height="40"/>
-           <div className="navbar-search-icon">
-            <img src = {assets.shoppingBasket} alt="" width="40" height="40"/>
-            <div className="dot">
+    
+    const scrollToProducts = () => {
+        setMenu("products");
+        const productsSection = document.getElementById('explore-menu');
+        if (productsSection) {
+            productsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <div className='navbar'>
+            <Link to='/'><img src={assets.logo} alt="" className="logo" /></Link>
+            <ul className="navbar-menu">
+                <Link to='/' onClick={() => setMenu("home")} className={menu==="home"?"active":""}>Home</Link>
+                <a href="#explore-menu" onClick={scrollToProducts} className={menu==="products"?"active":""}>Products</a>
+                <li onClick={() => setMenu("contactUs")} className={menu==="contactUs"?"active":""}>Contact us</li>
+            </ul>
+            <div className='navbar-right'>
+                <img src={assets.searchIcon} alt="" />
+                <div className="navbar-search-icon">
+                    <Link to='/cart'><img src={assets.shoppingBasket} alt="" /></Link>
+                    <div className="dot"></div>
+                </div>
+                <button onClick={()=>setShowLogin(true)}>Sign in</button>
             </div>
-           </div>
-           <button>Sign in</button>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Navbar

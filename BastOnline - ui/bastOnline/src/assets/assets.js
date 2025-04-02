@@ -18,10 +18,11 @@ import egg1 from './egg1.jpg'
 import milk1 from './milk1.png'
 import addiconwhite from './addiconwhite.png'
 import removeiconred from './removeiconred.png'
+import cross_icon from './cross_icon.png'
 
 
 export const assets = {
-    logo, searchIcon, shoppingBasket, header, addiconwhite, removeiconred
+    logo, searchIcon, shoppingBasket, header, addiconwhite, removeiconred, cross_icon
 }
 
 
