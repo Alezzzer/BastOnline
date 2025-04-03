@@ -27,7 +27,7 @@
 
 .explore-menu-list-item img{
     animation: fadeIn 2s;
-    width: 150px;
+    max-width: 150px;
     height: 150px;
     cursor: pointer;
     transition: 0.3s;

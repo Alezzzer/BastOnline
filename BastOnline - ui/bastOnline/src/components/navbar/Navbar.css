@@ -13,6 +13,7 @@
     list-style-type: none;
     gap: 20px;
    color:darkolivegreen;
+   cursor: pointer;
    font-size: 20px; 
 }
 
