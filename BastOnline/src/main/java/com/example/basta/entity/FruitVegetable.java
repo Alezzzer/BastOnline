@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum FruitVegetable {
 	
 	FRUIT("fruit"),
-    VEGETABLE("vegetable");
+    VEGETABLE("vegetable"),
+	EGGS("eggs"),
+	DAIRY("dairy");
 
     private final String value;
 

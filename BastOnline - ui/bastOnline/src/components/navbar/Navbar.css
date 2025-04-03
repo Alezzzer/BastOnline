@@ -13,6 +13,7 @@
     list-style-type: none;
     gap: 20px;
    color:darkolivegreen;
+   cursor: pointer;
    font-size: 20px; 
 }
 
@@ -50,6 +51,18 @@
     position: relative;
 }
 
+.navbar-right img{
+    width: 40px;
+    height: 40px;
+}
+
+.navbar-search-icon img{
+    width: 40px;
+    height: 40px;
+}
+
+
+
 .navbar-search-icon .dot{
     position: absolute;
     min-width: 10px;
@@ -59,3 +72,4 @@
     top: -8px;
     right: -8px;
 }
+
