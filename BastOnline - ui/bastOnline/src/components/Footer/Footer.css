@@ -14,7 +14,7 @@
     text-align: justify;
     max-width: 70%;
     margin-left: -50px;
-    
+    font-size: max(1vw);
     
 }
 .footer img{
@@ -42,6 +42,15 @@
 }
 .footer-content-center p{
     margin-left: -80px;
+    font-size: max(1vw);
+    
+
+
+}
+.footer-content-right p{
+    margin-left: -80px;
+    font-size: max(1vw);
+    
     
 
 
