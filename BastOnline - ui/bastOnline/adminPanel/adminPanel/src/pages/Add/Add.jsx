@@ -20,7 +20,7 @@ const Add = () => {
       setData(data=>({...data,[name]:value}))
   }
   const onSubmitHandler = async (event) =>{
-
+    event.preventDefault();
   }
   return (
     <div className='add'>
