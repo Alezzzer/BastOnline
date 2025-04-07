@@ -1,10 +1,12 @@
 package com.example.basta.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
@@ -25,14 +27,14 @@ public class AdminServiceImplementation implements AdminService {
 	private UserRepository ur;
 	private ModelMapper modelMapper;
 
-	@Override
-	public ProductDto addProduct(ProductDto productDto) {
-		Product product = modelMapper.map(productDto, Product.class);
-		Product savedProduct = pr.save(product);
-		ProductDto savedProductDto = modelMapper.map(savedProduct, ProductDto.class);
-		return savedProductDto;
-	}
+	 @Override
+	    public ProductDto addProduct(ProductDto productDto, MultipartFile imageFile) throws IOException {
+	        Product product = modelMapper.map(productDto, Product.class);
+	        product.setImage(imageFile.getBytes()); 
 
+	        Product savedProduct = pr.save(product);
+	        return modelMapper.map(savedProduct, ProductDto.class);
+	    }
 	@Override
 	public void deleteProduct(Long id) {
 		Product product = pr.findById(id)

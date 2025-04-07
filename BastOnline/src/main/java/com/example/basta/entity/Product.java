@@ -1,11 +1,13 @@
 package com.example.basta.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +32,14 @@ public class Product {
 	
 	private double price;
 	
-    @Enumerated(EnumType.STRING)
-    private FruitVegetable fruitVegetable;
+   
+    private String category;
+    
+    private String description;
+    
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
 
 
 }

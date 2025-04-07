@@ -13,10 +13,10 @@ public interface UserService {
 	
 	UserDto updateProfile (UserDto userDto, Long id);
 	
-	List<ProductDto> vegetables();
-	
-	List<ProductDto> fruits();
-	
+//	List<ProductDto> vegetables();
+//	
+//	List<ProductDto> fruits();
+//	
 	CartDto getCartByUser(Long userId);
 	
 	CartDto removeProductFromCart(Long userId, Long productId);
