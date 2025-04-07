@@ -16,7 +16,7 @@ const ProductsDisplay = ({category}) => {
              if(category==="All" || category===item.category){
               {console.log(category,item.category);}
                 return <ProductItem key={index} id={item._id} name={item.name} 
-                      description={item.description} price={item.price} image={item.image}/>}
+                      description={item.description} price={item.price} image={item.image} category={item.category}/>}
               
 })}
         </div>

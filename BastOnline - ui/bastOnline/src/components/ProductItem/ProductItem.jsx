@@ -3,10 +3,12 @@ import './ProductItem.css'
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
 
-const ProductItem = ({id,name,price,description,image}) => {
+const ProductItem = ({id,name,price,description,image,category}) => {
 
     const [itemCount,setItemCount] = useState(0)
     const {cartItems, addToCart, removeFromCart, setCartItems} = useContext(StoreContext)
+
+   
     return (
     <div className='product-item'>
         <div className="product-item-img-container">
@@ -17,6 +19,10 @@ const ProductItem = ({id,name,price,description,image}) => {
                 : <div className='product-item-counter'> 
                     <img onClick={()=>removeFromCart(id)} src={assets.removeiconred} alt=""/>
                     <p>{cartItems[id]}</p>
+                       
+                    <p>{category === 'Eggs' ? 'pcs' : 'kg'}</p>
+                    
+                    
                     <img  onClick={()=>addToCart(id)} src={assets.addiconwhite} alt=""/>
 
                 

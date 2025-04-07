@@ -1,6 +1,6 @@
 package com.example.basta.dtos;
 
-import com.example.basta.entity.FruitVegetable;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,5 +16,7 @@ public class ProductDto {
 	private String name;
 	private double kilograms;
 	private double price;
-	private FruitVegetable fruitVegetable;
+	private String category;
+	private String description;
+	 private byte[] image;
 }

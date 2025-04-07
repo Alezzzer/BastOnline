@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets'
+import axios from "axios"
+import { toast } from 'react-toastify';
+
+
 const Add = () => {
+
+  const url = "http://localhost:8080"
   const [image,setImage] = useState(false);
   const [data,setData] = useState({
     name:"",
     description:"",
     price:"",
+    kilograms: "",
     category:"Fruits"
   })
   useEffect(()=>{
@@ -19,9 +26,50 @@ const Add = () => {
       const value =event.target.value;
       setData(data=>({...data,[name]:value}))
   }
-  const onSubmitHandler = async (event) =>{
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
-  }
+  
+    const formData = new FormData();
+  
+    // 1. Spakuj ceo DTO kao JSON u Blob
+    const productData = new Blob([JSON.stringify({
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      kilograms: Number(data.quantity),
+      category: data.category
+    })], { type: "application/json" });
+  
+    formData.append("product", productData); // @RequestPart("product")
+    formData.append("image", image);         // @RequestPart("image")
+  
+    try {
+      const response = await axios.post("http://localhost:8080/api/admin/addProduct", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+  
+      if (response.status === 201) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          quantity: "",
+          category: "Fruits"
+        });
+        setImage(false);
+        toast.success("Product successfully added!");
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("Error while adding product.");
+      console.error(error);
+    }
+  };
+  
+  
   return (
     <div className='add'>
       <form className='flex-col' onSubmit={onSubmitHandler}>
@@ -53,6 +101,10 @@ const Add = () => {
           <div className="add-price flex-col">
             <p>Product price</p>
             <input onChange={onChangeHandler} type="Number" name='price' placeholder="$20"/>
+          </div>
+          <div className="add-quantity flex-col">
+            <p>Product quantity</p>
+            <input onChange={onChangeHandler} type="Number" name='quantity' />
           </div>
         </div>
         <button type="submit" className='add-btn'>ADD</button>
