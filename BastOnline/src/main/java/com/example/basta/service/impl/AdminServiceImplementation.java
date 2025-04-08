@@ -64,8 +64,33 @@ public class AdminServiceImplementation implements AdminService {
             savedProductDto.setImagePath(imageUrl);
         }
 
+<<<<<<< Updated upstream
         return savedProductDto;
     }
+=======
+	@Override
+	public void deleteUser(Long id) {
+		User user = ur.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User with id: "+ id +" is not found!"));
+		ur.deleteById(id);
+	}
+	@Override
+	public ProductDto updateProduct(ProductDto productDto, Long id) {
+		Product product = pr.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Product with id: " + id + "is not found!"));
+		product.setName(productDto.getName());
+		product.setDescription(productDto.getDescription());
+		product.setCategory(productDto.getDescription());
+		product.setKilograms(productDto.getKilograms());
+		product.setPrice(productDto.getPrice());
+		product.setImage(productDto.getImage());
+		Product prod = pr.save(product);
+		ProductDto updatedProduct = modelMapper.map(prod, ProductDto.class);
+		return updatedProduct;
+	}
+	
+	
+>>>>>>> Stashed changes
 
     @Override
     public void deleteProduct(Long id) {
