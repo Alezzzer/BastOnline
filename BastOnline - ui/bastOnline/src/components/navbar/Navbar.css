@@ -73,3 +73,10 @@
     right: -8px;
 }
 
+.navbar-search-input {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid darkolivegreen;
+    outline: none;
+    font-size: 16px;
+}
