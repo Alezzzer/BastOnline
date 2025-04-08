@@ -31,6 +31,7 @@ public class ManagerServiceImplementation implements ManagerService {
 		omd.setOrderDate(order.getOrderDate());
 		omd.setFinalPrice(order.getFinalPrice());
 		omd.setProducts(order.getProducts());
+		omd.setId(order.getId());
 		omd.setUserAddress(userDto.getAddress());
 		omd.setUserEmail(userDto.getEmail());
 		omd.setUserPhone(userDto.getPhone());
@@ -56,6 +57,7 @@ public class ManagerServiceImplementation implements ManagerService {
 			omd.setProducts(o.getProducts());
 			omd.setUserAddress(userDto.getAddress());
 			omd.setUserEmail(userDto.getEmail());
+			omd.setId(o.getId());
 			omd.setUserPhone(userDto.getPhone());
 			omd.setUserName(userDto.getName());
 			omd.setApproved(o.getApproved());
@@ -75,6 +77,7 @@ public class ManagerServiceImplementation implements ManagerService {
 		omd.setOrderDate(order.getOrderDate());
 		omd.setFinalPrice(order.getFinalPrice());
 		omd.setProducts(order.getProducts());
+		omd.setId(order.getId());
 		omd.setUserAddress(userDto.getAddress());
 		omd.setUserEmail(userDto.getEmail());
 		omd.setUserPhone(userDto.getPhone());

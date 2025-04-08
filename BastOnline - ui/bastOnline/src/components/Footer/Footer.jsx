@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md';
 import { assets } from '../../assets/assets'
 const Footer = () => {
   return (
@@ -17,13 +18,22 @@ const Footer = () => {
             <p><br></br>Free delivery via Express delivery services!</p>
         </div>
         <div className="footer-content-right">
-            <h2>GET IN TOUCH</h2>
-            <ul><br></br>
-            <li>contact@farmonline.com</li>
-                <li>+38160012345</li>
-                
-            </ul>
-        </div>
+  <h2>GET IN TOUCH</h2>
+  <ul>
+    <li>
+      <MdEmail className="icon" />
+      <a href="mailto:contact@farmonline.com" className="info-link">contact@farmonline.com</a>
+    </li>
+    <li>
+      <MdPhone className="icon" />
+      <span >+38160012345</span>
+    </li>
+    <li>
+      <MdLocationOn className="icon" />
+      <span >Belgrade, Serbia</span>
+    </li>
+  </ul>
+</div>
         </div>
         <p className="footer-copyright">Copyright © 2025 farmonline.com - All rights reserved.</p>
         </div>

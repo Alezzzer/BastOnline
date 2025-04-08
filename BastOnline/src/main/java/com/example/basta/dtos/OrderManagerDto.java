@@ -15,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderManagerDto {
+	private Long id;
     private Boolean approved;
     private double finalPrice;
     private Date orderDate;
