@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './List.css'
 import { deleteProduct, getProducts, updateProduct } from '../../Services/BastOnline';
+import { toast } from 'react-toastify';
 const List = () => {
   const [products, setProducts] = useState([]);
 
@@ -10,6 +11,15 @@ const List = () => {
       (response) => {setProducts(response.data);})
       .catch(error => {
         console.error(error);
+      });
+  }
+  function handleDelete(productId) {
+    deleteProduct(productId)
+      .then(() => {
+        setProducts(products.filter(product => product.id !== productId));
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
       });
   }
   return (
@@ -38,7 +48,7 @@ const List = () => {
                       <td>{product.description}</td>
                       <td> 
                           <button className='btn btn-info' onClick={() => updateProduct(product.id)}>Update Product</button>
-                          <button className='btn btn-danger' onClick={() => deleteProduct(product.id)} style={ { marginLeft: "10px" }}>Delete Product</button>
+                          <button className='btn btn-danger' onClick={() =>  handleDelete(product.id)} style={ { marginLeft: "10px" }}>Delete Product</button>
                       </td>
                     </tr>
                   )

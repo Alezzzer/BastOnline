@@ -64,16 +64,15 @@ public class AdminServiceImplementation implements AdminService {
             savedProductDto.setImagePath(imageUrl);
         }
 
-<<<<<<< Updated upstream
+
         return savedProductDto;
     }
-=======
-	@Override
-	public void deleteUser(Long id) {
-		User user = ur.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("User with id: "+ id +" is not found!"));
-		ur.deleteById(id);
-	}
+	 @Override
+	    public void deleteUser(Long id) {
+	        User user = ur.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found!"));
+	        ur.deleteById(id);
+	    }
 	@Override
 	public ProductDto updateProduct(ProductDto productDto, Long id) {
 		Product product = pr.findById(id).orElseThrow(() -> 
@@ -83,14 +82,14 @@ public class AdminServiceImplementation implements AdminService {
 		product.setCategory(productDto.getDescription());
 		product.setKilograms(productDto.getKilograms());
 		product.setPrice(productDto.getPrice());
-		product.setImage(productDto.getImage());
+		product.setImagePath(productDto.getImagePath());
 		Product prod = pr.save(product);
 		ProductDto updatedProduct = modelMapper.map(prod, ProductDto.class);
 		return updatedProduct;
 	}
 	
 	
->>>>>>> Stashed changes
+
 
     @Override
     public void deleteProduct(Long id) {
@@ -156,10 +155,5 @@ public class AdminServiceImplementation implements AdminService {
         return modelMapper.map(user, UserDto.class);
     }
 
-    @Override
-    public void deleteUser(Long id) {
-        User user = ur.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found!"));
-        ur.deleteById(id);
-    }
+   
 }
