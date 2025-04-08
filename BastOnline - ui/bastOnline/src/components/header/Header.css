@@ -15,9 +15,9 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 0px;
+    gap: 20px;
    
-    bottom: 32%;
+    bottom: 35%;
     left: 2vw;
     animation: fadeIn 3s;
 }
