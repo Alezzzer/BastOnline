@@ -1,27 +1,50 @@
-import React, { useContext } from 'react'
-import './ProductsDisplay.css'
-import { StoreContext } from '../context/StoreContext'
-import { product_list } from '../assets/assets'
-import ProductItem from '../components/ProductItem/ProductItem'
+import React, { useEffect, useState } from 'react';
+import './ProductsDisplay.css';
+import ProductItem from '../components/ProductItem/ProductItem';
+import axios from 'axios';
 
-const ProductsDisplay = ({category}) => {
+const ProductsDisplay = ({ category }) => {
+    const [products, setProducts] = useState([]);
 
-    const{product_list} = useContext(StoreContext)
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/admin/getProducts');
+                const rawProducts = response.data;
 
-  return (
-    <div className='products-display' id='products-display'>
-        <div className="product-display-list">
-            {product_list.map((item,index)=>{
-              
-             if(category==="All" || category===item.category){
-              {console.log(category,item.category);}
-                return <ProductItem key={index} id={item._id} name={item.name} 
-                      description={item.description} price={item.price} image={item.image} category={item.category}/>}
-              
-})}
+                const productsWithImages = rawProducts.map(product => ({
+                    ...product,
+                    image: product.imagePath // Backend sada šalje URL slike
+                }));
+
+                setProducts(productsWithImages);
+            } catch (error) {
+                console.error('❌ Greška prilikom dohvatanja proizvoda:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    return (
+        <div className='products-display' id='products-display'>
+            <div className="product-display-list">
+                {products
+                    .filter(item => category === 'All' || item.category === category)
+                    .map((item, index) => (
+                        <ProductItem
+                            key={index}
+                            id={item.id}
+                            name={item.name}
+                            description={item.description}
+                            price={item.price}
+                            image={item.image || '/default-image.jpg'} // Koristi imagePath direktno
+                            category={item.category}
+                        />
+                    ))}
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default ProductsDisplay
+export default ProductsDisplay;
