@@ -14,7 +14,7 @@ import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
 import com.example.basta.entity.Cart;
 import com.example.basta.entity.CartItem;
-import com.example.basta.entity.FruitVegetable;
+
 import com.example.basta.entity.Order;
 import com.example.basta.entity.Product;
 import com.example.basta.entity.User;
@@ -63,22 +63,22 @@ public class UserServiceImpl implements UserService {
 		
 		return modelMapper.map(updatedUser, UserDto.class);
 	}
-
-	@Override
-	public List<ProductDto> vegetables() {
-		
-		List<Product> products = productRepo.findByFruitVegetable(FruitVegetable.VEGETABLE);
-		return products.stream().map((product)->modelMapper.map(product, ProductDto.class))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<ProductDto> fruits() {
-		
-		List<Product> products = productRepo.findByFruitVegetable(FruitVegetable.FRUIT);
-		return products.stream().map((product)->modelMapper.map(product, ProductDto.class))
-				.collect(Collectors.toList());
-	}
+//
+//	@Override
+//	public List<ProductDto> vegetables() {
+//		
+//		List<Product> products = productRepo.findByFruitVegetable(FruitVegetable.VEGETABLE);
+//		return products.stream().map((product)->modelMapper.map(product, ProductDto.class))
+//				.collect(Collectors.toList());
+//	}
+//
+//	@Override
+//	public List<ProductDto> fruits() {
+//		
+//		List<Product> products = productRepo.findByFruitVegetable(FruitVegetable.FRUIT);
+//		return products.stream().map((product)->modelMapper.map(product, ProductDto.class))
+//				.collect(Collectors.toList());
+//	}
 	
 	
 	@Override

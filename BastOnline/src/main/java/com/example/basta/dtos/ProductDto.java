@@ -1,6 +1,6 @@
 package com.example.basta.dtos;
 
-import com.example.basta.entity.FruitVegetable;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,9 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
-	private Long id;
-	private String name;
-	private double kilograms;
-	private double price;
-	private FruitVegetable fruitVegetable;
+	  private Long id;
+	    private String name;
+	    private double kilograms;
+	    private double price;
+	    private String category;
+	    private String description;
+	    private String imagePath;
 }

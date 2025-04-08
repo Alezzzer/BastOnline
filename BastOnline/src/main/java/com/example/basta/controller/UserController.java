@@ -51,17 +51,17 @@ public class UserController {
 	 }
 	 
 	
-	@GetMapping("/vegetables")
-	public ResponseEntity<List<ProductDto>> allVegetables(){
-		List<ProductDto> vegetables = userService.vegetables();
-		return ResponseEntity.ok(vegetables);
-	}
-	
-	@GetMapping("/fruits")
-	public ResponseEntity<List<ProductDto>> allFruits(){
-		List<ProductDto> fruits = userService.fruits();
-		return ResponseEntity.ok(fruits);
-	}
+//	@GetMapping("/vegetables")
+//	public ResponseEntity<List<ProductDto>> allVegetables(){
+//		List<ProductDto> vegetables = userService.vegetables();
+//		return ResponseEntity.ok(vegetables);
+//	}
+//	
+//	@GetMapping("/fruits")
+//	public ResponseEntity<List<ProductDto>> allFruits(){
+//		List<ProductDto> fruits = userService.fruits();
+//		return ResponseEntity.ok(fruits);
+//	}
 	
 	 @GetMapping("/cart/{userId}")
 	    public ResponseEntity<CartDto> getCart(@PathVariable Long userId) {
