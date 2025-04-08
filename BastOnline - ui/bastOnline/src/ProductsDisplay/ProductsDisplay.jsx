@@ -3,7 +3,7 @@ import './ProductsDisplay.css';
 import ProductItem from '../components/ProductItem/ProductItem';
 import axios from 'axios';
 
-const ProductsDisplay = ({ category }) => {
+const ProductsDisplay = ({ category, searchQuery = "" }) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const ProductsDisplay = ({ category }) => {
 
                 const productsWithImages = rawProducts.map(product => ({
                     ...product,
-                    image: product.imagePath // Backend sada šalje URL slike
+                    image: product.imagePath
                 }));
 
                 setProducts(productsWithImages);
@@ -30,7 +30,10 @@ const ProductsDisplay = ({ category }) => {
         <div className='products-display' id='products-display'>
             <div className="product-display-list">
                 {products
-                    .filter(item => category === 'All' || item.category === category)
+                    .filter(item =>
+                        (category === 'All' || item.category === category) &&
+                        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    )
                     .map((item, index) => (
                         <ProductItem
                             key={index}
@@ -38,7 +41,7 @@ const ProductsDisplay = ({ category }) => {
                             name={item.name}
                             description={item.description}
                             price={item.price}
-                            image={item.image || '/default-image.jpg'} // Koristi imagePath direktno
+                            image={item.image || '/default-image.jpg'}
                             category={item.category}
                         />
                     ))}
