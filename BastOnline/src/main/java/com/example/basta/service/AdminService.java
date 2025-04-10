@@ -16,5 +16,5 @@ public interface AdminService {
 	List<UserDto> getAllUsers();
 	UserDto getUserById(Long id);
 	void deleteUser(Long id);
-	ProductDto updateProduct(ProductDto productDto, Long id);
+	 public ProductDto updateProduct(ProductDto productDto, MultipartFile imageFile, Long id) throws IOException;
 }

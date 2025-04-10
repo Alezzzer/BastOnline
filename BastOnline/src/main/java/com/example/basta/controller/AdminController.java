@@ -1,5 +1,6 @@
 package com.example.basta.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -73,10 +74,14 @@ public class AdminController {
 		return new ResponseEntity<>("User with id: " + userId + "is successfully deleted!", HttpStatus.OK);
 	}
 	
-	@PutMapping("updateProduct/{id}")
-	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto p, @PathVariable("id") Long productId){
-		ProductDto productDto = aService.updateProduct(p, productId);
-		return new ResponseEntity<>(productDto,HttpStatus.OK);
+	@PutMapping(value = "updateProduct/{id}", consumes = "multipart/form-data")
+	public ResponseEntity<ProductDto> updateProduct(
+	        @RequestPart("product") ProductDto productDto,
+	        @RequestPart(value = "image", required = false) MultipartFile imageFile,
+	        @PathVariable("id") Long productId) throws IOException {
+
+	    ProductDto updatedProduct = aService.updateProduct(productDto, imageFile, productId);
+	    return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
 	}
 }
 

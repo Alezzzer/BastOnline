@@ -1,71 +1,64 @@
-/* table {
-    border: 1px solid darkolivegreen;
-    text-align: center;
-    width: 100%;
-  }
-  
-  th {
-    background-color: tomato;
-   
-    color: green;
-  }
-  th,td{
-    padding: 15px;
-  }
-  tr:nth-child(even) {background-color: #f2f2f2;}
-  tr:hover {background-color: lemonchiffon;}
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 2rem;
+}
 
-button{
-    background-color: #04AA6D; 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-} */
-
-/* Osnovni stil za tabelu */
-table {
-  background-color: lightyellow;
+.products-list h2 {
   color: darkolivegreen;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-
+  background-color: lightyellow;
+  color: darkolivegreen;
 }
 
-td, th {
-  padding: 12px;
+th, td {
+  border: 2px solid darkolivegreen;
+  padding: 10px;
   text-align: left;
-  border: 3px solid #ddd;
+  max-width:300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-input, select {
-  padding: 8px;
-  margin: 4px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-input[type="text"] {
+/* Inputs and selects */
+input[type="text"], input[type="number"], select {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
-/* Stil za slike proizvoda */
+input[type="file"] {
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Product image */
 .product-image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
 }
 
-/* Dugmadi */
+/* Buttons */
 .btn {
-  padding: 8px 15px;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s;
 }
 
 .save-btn {
@@ -108,7 +101,6 @@ input[type="text"] {
   background-color: #e53935;
 }
 
-/* Hover efekat za redove u tabeli */
 tr:hover {
   background-color: #f1f1f1;
 }
