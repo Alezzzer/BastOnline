@@ -1,80 +1,108 @@
-.cart{
+.cart {
     margin-top: 100px;
-}
-
-.cart-items-title{
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+    padding: 0 50px;
+  }
+  
+  
+  .cart-items-title {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     color: darkolivegreen;
-    font-size: (1vw,12px);
-}
-
-.cart-items-item{
-    margin: 10px 0px;
-    color: black;
-}
-
-.cart-items-item img{
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 0;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  
+  .cart-items-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  
+  .cart-items-title > p,
+  .cart-items-row > .cart-col {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .cart-items-title > p:nth-child(2),
+  .cart-items-row > .name-col {
+    flex: 1.5;
+  }
+  
+  .cart-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  
+  .image-col img {
     width: 50px;
-    
-
-}
-
-.cart hr{
-    height: 1px;
-    background-color: green;
-    border: none;
-    
-}
-
-.cart-items-item .cross{
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  
+  .cart-item-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .cart-item-counter img {
+    height: 35px;
+    width: 40px;
     cursor: pointer;
-}
-
-.cart-bottom{
+  }
+  
+  .cart-item-counter p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  
+  .cart-bottom {
     margin-top: 80px;
     display: flex;
     justify-content: space-between;
-    gap: max(12vw,20px);
-
-}
-
-.cart-total{
+    flex-wrap: wrap;
+    gap: max(12vw, 20px);
+  }
+  
+  .cart-total {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
-
-}
-
-.cart-total b{
-    font-size: max(1vw,20px);
-}
-
-.cart-total-details{
+  }
+  
+  .cart-total-details {
     display: flex;
     justify-content: space-between;
-    color: black;
-}
-
-.cart-total h2{
-    color:green;
-    
-
-}
-
-.cart-total hr{
-    margin-top: -20px;
-}
-
-.cart-total button{
+  }
+  
+  
+  .cart-total button {
     border: none;
     color: white;
     background-color: green;
-    width: max(15vw,200px);
+    width: max(15vw, 200px);
     padding: 12px 0px;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-}
+  }
+  
+  .cart-total button:hover {
+    background-color: darkgreen;
+  }
+  

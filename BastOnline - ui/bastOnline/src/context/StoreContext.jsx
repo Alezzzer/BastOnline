@@ -1,52 +1,78 @@
 import { createContext, useEffect, useState } from "react";
-import {product_list} from "../assets/assets"
-export const StoreContext = createContext(null)
+import axios from "axios";
 
-const StoreContextProvider = (props) =>{
+export const StoreContext = createContext(null);
 
-    const [cartItems,setCartItems] = useState({});
+const StoreContextProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState({});
+  const [products, setProducts] = useState([]);
 
-    const addToCart = (itemId) => {
-        if(!cartItems[itemId]){
-            setCartItems((prev) => ({...prev,[itemId]:1}))
+  // Fetch products from backend
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/admin/getProducts")
+      .then((response) => {
+        const productsWithImages = response.data.map(product => ({
+          ...product,
+          image: product.imagePath || '/default-image.jpg'
+        }));
+        setProducts(productsWithImages);
+        initializeCart(productsWithImages);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+
+  // Initialize cart items with all product ids set to 0
+  const initializeCart = (productList) => {
+    const cart = {};
+    productList.forEach(product => {
+      cart[product.id] = 0;
+    });
+    setCartItems(cart);
+  };
+
+  const addToCart = (itemId) => {
+    setCartItems(prev => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + 1
+    }));
+  };
+
+  const removeFromCart = (itemId) => {
+    setCartItems(prev => ({
+      ...prev,
+      [itemId]: Math.max((prev[itemId] || 0) - 1, 0)
+    }));
+  };
+
+  const getTotalCartAmount = () => {
+    let total = 0;
+    for (const itemId in cartItems) {
+      const quantity = cartItems[itemId];
+      if (quantity > 0) {
+        const product = products.find(p => p.id === parseInt(itemId));
+        if (product) {
+          total += product.price * quantity;
         }
-        else {
-            setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
-        }
+      }
     }
+    return total;
+  };
 
-    const removeFromCart = (itemId) => {
-        setCartItems((prev) => ({...prev, [itemId]:prev[itemId]-1
-        }))
-    }
+  const contextValue = {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    getTotalCartAmount,
+    products
+  };
 
-    const getTotalCartAmount = ()=>{
-        let totalAmount = 0;
-        for(const item in cartItems){
-                if(cartItems[item]>0){
+  return (
+    <StoreContext.Provider value={contextValue}>
+      {children}
+    </StoreContext.Provider>
+  );
+};
 
-                let itemInfo = product_list.find((product)=>product._id===item)
-                totalAmount += itemInfo.price* cartItems[item];
-        }
-    }
-    return totalAmount;
-    }
-
-    const contextValue = {
-        product_list,
-        cartItems,
-        setCartItems,
-        addToCart,
-        removeFromCart,
-        getTotalCartAmount
-
-    }
-
-    return(
-        <StoreContext.Provider value={contextValue}>
-            {props.children}
-        </StoreContext.Provider>
-    )
-}
-
-export default StoreContextProvider
+export default StoreContextProvider;

@@ -1,65 +1,90 @@
-import React, { useContext } from 'react'
-import './Cart.css'
-import { StoreContext } from '../../context/StoreContext'
-import { useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
+import { assets } from "../../assets/assets";
+import "./Cart.css";
+
 const Cart = () => {
+  const {
+    cartItems,
+    products,
+    addToCart,
+    removeFromCart,
+    getTotalCartAmount
+  } = useContext(StoreContext);
 
-  const {cartItems,product_list,removeFromCart, getTotalCartAmount} = useContext(StoreContext)
-
-  const navigate = useNavigate()
+  const totalAmount = getTotalCartAmount();
 
   return (
-    <div className='cart'>
-      <div className="cart-items">
-        <div className="cart-items-title">
-          <p>Items</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-          <p>Remove</p>
-        </div>
-        <br/>
-        
-        <hr/>
-        {product_list.map((item,index)=>{
-            if(cartItems[item._id]>0)
-            {
-              return (
-                <div>
-
-<div className='cart-items-title cart-items-item'>
-                    <img src={item.image} alt="" />
-                    <p>{item.name}</p>
-                    <p>${item.price}</p>
-                    <p>{cartItems[item._id]}</p>
-                    <p>${item.price*cartItems[item._id]}</p>
-                    <p onClick={()=>removeFromCart(item._id)} className='cross'>x</p>
-                </div>
-                <hr/>
-                  </div>
-                
-              )
-            }
-        })}
+    <div className="cart">
+      <div className="cart-items-title">
+        <p>Image</p>
+        <p>Product</p>
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>SubTotal</p>
+        <p>Update</p>
       </div>
-          <div className="cart-bottom">
-            <div className="cart-total">
-              <h2>Cart Total</h2>
-            
-                <hr/>
-                <div className="cart-total-details">
-                  <b>Total</b>
-                  <b>${getTotalCartAmount()}</b>
-                </div>
-             
-              <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+      
 
+      {products.map((product) => {
+        const quantity = cartItems[product.id];
+        if (!quantity) return null;
+
+        return (
+          <div key={product.id} className="cart-items-row">
+            <div className="cart-col image-col">
+              <img src={product.image || "/default-image.jpg"} alt={product.name} />
             </div>
-            
+            <div className="cart-col name-col">{product.name}</div>
+            <div className="cart-col price-col">${product.price}</div>
+            <div className="cart-col quantity-col">
+              {quantity} {product.category === "Eggs" ? "pcs" : "kg"}
+            </div>
+            <div className="cart-col subtotal-col">
+              ${product.price * quantity}
+            </div>
+            <div className="cart-col update-col">
+              <div className="cart-item-counter">
+                <img
+                  src={assets.removeiconred}
+                  alt="Remove"
+                  onClick={() => removeFromCart(product.id)}
+                />
+                <p>{quantity}</p>
+                <img
+                  src={assets.addiconwhite}
+                  alt="Add"
+                  onClick={() => addToCart(product.id)}
+                />
+              </div>
+            </div>
           </div>
-    </div>
-  )
-}
+        );
+      })}
 
-export default Cart
+      {totalAmount > 0 && (
+        <div className="cart-bottom">
+          <div className="cart-total">
+            <h2>Cart Total</h2>
+
+            <div className="cart-total-details">
+              <p>Delivery</p>
+              <p>Free</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <b>Total</b>
+              <b>${totalAmount.toFixed(2)}</b>
+            </div>
+            <Link to="/checkout">
+              <button>Proceed to Checkout</button>
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Cart;

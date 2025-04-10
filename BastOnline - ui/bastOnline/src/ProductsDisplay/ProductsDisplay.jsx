@@ -1,30 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import './ProductsDisplay.css';
 import ProductItem from '../components/ProductItem/ProductItem';
-import axios from 'axios';
+import { StoreContext } from '../context/StoreContext';
 
 const ProductsDisplay = ({ category, searchQuery = "" }) => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/admin/getProducts');
-                const rawProducts = response.data;
-
-                const productsWithImages = rawProducts.map(product => ({
-                    ...product,
-                    image: product.imagePath
-                }));
-
-                setProducts(productsWithImages);
-            } catch (error) {
-                console.error('❌ Greška prilikom dohvatanja proizvoda:', error);
-            }
-        };
-
-        fetchProducts();
-    }, []);
+    const { products } = useContext(StoreContext); // UZMI IZ KONTEKSTA
 
     return (
         <div className='products-display' id='products-display'>
@@ -41,7 +21,7 @@ const ProductsDisplay = ({ category, searchQuery = "" }) => {
                             name={item.name}
                             description={item.description}
                             price={item.price}
-                            image={item.image || '/default-image.jpg'}
+                            image={item.imagePath || '/default-image.jpg'} // koristi imagePath
                             category={item.category}
                         />
                     ))}
