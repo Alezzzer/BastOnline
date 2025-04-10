@@ -1,0 +1,89 @@
+.myprofile {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 100px;
+    padding: 20px;
+  }
+  
+  .myprofile h2 {
+    font-size: 30px;
+    font-weight: 500;
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .profile-details {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid darkolivegreen;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #f4fff4;
+  }
+  
+  .profile-details p {
+    font-size: 16px;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  .profile-details b {
+    color: darkgreen;
+  }
+  
+  .profile-details button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .profile-details button:hover {
+    background-color: green;
+  }
+  
+  .profile-form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid darkolivegreen;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #f4fff4;
+  }
+  
+  .profile-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: darkgreen;
+  }
+  
+  .profile-form input {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid darkolivegreen;
+    border-radius: 4px;
+    outline-color: green;
+  }
+  
+  .profile-form button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .profile-form button:hover {
+    background-color: green;
+  }
+  

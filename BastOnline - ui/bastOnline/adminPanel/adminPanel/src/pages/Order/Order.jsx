@@ -19,9 +19,8 @@ const Order = () => {
 
   const approveOrder = async (orderId) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/manager/${orderId}/approve`);
+      await axios.put(`http://localhost:8080/api/manager/${orderId}/approve`);
       toast.success('Order approved!');
-      // Refreshuje porudžbine
       fetchAllOrders();
     } catch (error) {
       toast.error('Error approving order');
@@ -42,20 +41,18 @@ const Order = () => {
             <img src={assets.parcel_icon} alt="" />
 
             <div className="order-columns">
-             
               <div className="order-col">
                 <h4>Products</h4>
                 <p className='order-item-product'>
-                  {order.products.map((item, index) => (
+                  {order.items?.map((item, index) => (
                     <span key={index}>
-                      {item.name} x {item.kilograms} {item.category === 'Eggs' ? 'pcs' : 'kg'}
-                      {index < order.products.length - 1 ? ', ' : ''}
+                      {item.product?.name} x {item.quantity} {item.product?.category === 'Eggs' ? 'pcs' : 'kg'}
+                      {index < order.items.length - 1 ? ', ' : ''}
                     </span>
                   ))}
                 </p>
               </div>
 
-             
               <div className="order-col">
                 <h4>User Info</h4>
                 <p><strong>Name:</strong> {order.userName}</p>
@@ -63,14 +60,12 @@ const Order = () => {
                 <p><strong>Phone:</strong> {order.userPhone}</p>
               </div>
 
-              
               <div className="order-col">
                 <h4>Details</h4>
                 <p><strong>Total:</strong> ${order.finalPrice}</p>
                 <p><strong>Date:</strong> {new Date(order.orderDate).toLocaleString()}</p>
               </div>
 
-              
               <div className="order-col">
                 <h4>Status</h4>
                 <p>
@@ -83,7 +78,6 @@ const Order = () => {
                 )}
               </div>
             </div>
-
           </div>
         ))}
       </div>
