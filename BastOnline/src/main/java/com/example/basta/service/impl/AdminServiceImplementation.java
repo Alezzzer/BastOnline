@@ -79,7 +79,7 @@ public class AdminServiceImplementation implements AdminService {
 		new ResourceNotFoundException("Product with id: " + id + "is not found!"));
 		product.setName(productDto.getName());
 		product.setDescription(productDto.getDescription());
-		product.setCategory(productDto.getDescription());
+		product.setCategory(productDto.getCategory());
 		product.setKilograms(productDto.getKilograms());
 		product.setPrice(productDto.getPrice());
 		product.setImagePath(productDto.getImagePath());

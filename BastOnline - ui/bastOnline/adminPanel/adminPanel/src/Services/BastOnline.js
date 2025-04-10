@@ -32,4 +32,4 @@ export const getProducts = () => axios.get(BASE_REST_API_ADMIN_URL + '/getProduc
 
 export const deleteProduct = (id) => axios.delete(BASE_REST_API_ADMIN_URL + '/deleteProduct' + '/' +id);
 
-export const updateProduct = (id, product) => axios.put(BASE_REST_API_ADMIN_URL + '/updateProduct' + '/' + id);
+export const updateProduct = (id, product) => axios.put(BASE_REST_API_ADMIN_URL + '/updateProduct' + '/' + id, product);
