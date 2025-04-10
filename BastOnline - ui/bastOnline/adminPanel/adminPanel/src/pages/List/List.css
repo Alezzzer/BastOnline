@@ -1,0 +1,106 @@
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 2rem;
+}
+
+.products-list h2 {
+  color: darkolivegreen;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: lightyellow;
+  color: darkolivegreen;
+}
+
+th, td {
+  border: 2px solid darkolivegreen;
+  padding: 10px;
+  text-align: left;
+  max-width:300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Inputs and selects */
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+input[type="file"] {
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Product image */
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.save-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.edit-btn {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+}
+
+.edit-btn:hover {
+  background-color: #e68900;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}

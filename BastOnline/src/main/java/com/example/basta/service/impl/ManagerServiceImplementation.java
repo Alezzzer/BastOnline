@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.basta.dtos.OrderItemDto;
 import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.OrderManagerDto;
+import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
 import com.example.basta.entity.Order;
 import com.example.basta.entity.OrderItem;
@@ -44,6 +45,7 @@ public class ManagerServiceImplementation implements ManagerService {
 
         List<OrderItemDto> items = order.getItems().stream().map(this::mapToOrderItemDto).collect(Collectors.toList());
         dto.setItems(items);
+
 
         return dto;
     }
@@ -94,4 +96,5 @@ public class ManagerServiceImplementation implements ManagerService {
 
         return dto;
     }
+
 }
