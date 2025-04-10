@@ -46,6 +46,14 @@ const StoreContextProvider = ({ children }) => {
     }));
   };
 
+  const clearCart = () => {
+    const cleared = {};
+    Object.keys(cartItems).forEach(key => {
+      cleared[key] = 0;
+    });
+    setCartItems(cleared);
+  };
+
   const getTotalCartAmount = () => {
     let total = 0;
     for (const itemId in cartItems) {
@@ -64,6 +72,7 @@ const StoreContextProvider = ({ children }) => {
     cartItems,
     addToCart,
     removeFromCart,
+    clearCart,
     getTotalCartAmount,
     products
   };

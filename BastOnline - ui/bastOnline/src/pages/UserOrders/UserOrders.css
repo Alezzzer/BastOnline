@@ -1,0 +1,56 @@
+.myorders {
+    padding: 2rem;
+    color: darkolivegreen;
+  }
+  
+  .myorders h3 {
+    margin-bottom: 20px;
+    color: darkgreen;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  .myorders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .myorders-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid darkolivegreen;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #fff;
+  }
+  
+  .myorders-item img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .myorders-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+  }
+  
+  .myorders-col {
+    flex: 1;
+  }
+  
+  .myorders-col h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .myorders-item-product {
+    font-weight: 500;
+  }
+  

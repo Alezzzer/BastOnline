@@ -1,29 +1,31 @@
-.navbar{
+.navbar {
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center; 
 }
-.navbar .logo{
+
+.navbar .logo {
     width: 150px;
 }
 
-.navbar-menu{
+.navbar-menu {
     display: flex;
     list-style-type: none;
     gap: 20px;
-   color:darkolivegreen;
-   cursor: pointer;
-   font-size: 20px; 
+    color: darkolivegreen;
+    cursor: pointer;
+    font-size: 20px; 
 }
 
-.navbar-right{
+.navbar-right {
     display: flex;
     align-items: center;
     gap: 40px;
+    position: relative;
 }
 
-.navbar button{
+.navbar button {
     background: transparent;
     font-size: 16px;
     color: darkolivegreen;
@@ -34,36 +36,34 @@
     transition: 0.4s;
 }
 
-.navbar button:hover{
+.navbar button:hover {
     background-color: lightgreen;
 }
 
-.navbar .active{
+.navbar .active {
     padding-bottom: 2px;
     border-bottom: 1px solid darkolivegreen;
 }
 
-.navbar li{
+.navbar li {
     cursor: pointer;
 }
 
-.navbar-search-icon{
+.navbar-search-icon {
     position: relative;
 }
 
-.navbar-right img{
+.navbar-right img {
     width: 40px;
     height: 40px;
 }
 
-.navbar-search-icon img{
+.navbar-search-icon img {
     width: 40px;
     height: 40px;
 }
 
-
-
-.navbar-search-icon .dot{
+.navbar-search-icon .dot {
     position: absolute;
     min-width: 10px;
     min-height: 10px;
@@ -79,4 +79,72 @@
     border: 1px solid darkolivegreen;
     outline: none;
     font-size: 16px;
+}
+
+/* ----------- User menu dropdown ----------- */
+
+.navbar-user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar-user-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    transition: border-color 0.2s;
+}
+
+.navbar-user-icon:hover {
+    border-color: darkolivegreen;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    z-index: 100;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.user-dropdown a {
+    padding: 10px 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: darkolivegreen;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown a:hover {
+    background-color: #f2fff2;
+    color: green;
+}
+
+.user-dropdown button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    color: darkolivegreen;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.user-dropdown button:hover {
+    background-color: #ffecec;
+    color: red;
 }
