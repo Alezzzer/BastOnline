@@ -46,9 +46,7 @@ public class ManagerServiceImplementation implements ManagerService {
         List<OrderItemDto> items = order.getItems().stream().map(this::mapToOrderItemDto).collect(Collectors.toList());
         dto.setItems(items);
 
-<<<<<<< HEAD
-	
-=======
+
         return dto;
     }
 
@@ -98,5 +96,5 @@ public class ManagerServiceImplementation implements ManagerService {
 
         return dto;
     }
->>>>>>> front-aca
+
 }

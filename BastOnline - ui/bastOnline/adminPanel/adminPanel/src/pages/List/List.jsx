@@ -72,28 +72,37 @@ const List = () => {
       <h2 className='text-center'>List of Products</h2>
       <div>
         <table>
-      <tbody>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>Kilograms</td>
+            <td>Price</td>
+            <td>Category</td>
+            <td>Description</td>
+            <td>Image</td>
+            <td>Actions</td>
+          </tr>
   {products.map(product =>
     <tr key={product.id}>
       <td>
         {editProductId === product.id
-          ? <input value={editedProduct.name || ''} onChange={(e) => handleInputChange(e, 'name')} />
+          ? <input className="input-field" value={editedProduct.name || ''} onChange={(e) => handleInputChange(e, 'name')} />
           : product.name}
       </td>
       <td>
         {editProductId === product.id
-          ? <input type="number" value={editedProduct.kilograms || ''} onChange={(e) => handleInputChange(e, 'kilograms')} />
+          ? <input className="input-field" type="number" value={editedProduct.kilograms || ''} onChange={(e) => handleInputChange(e, 'kilograms')} />
           : product.kilograms}
       </td>
       <td>
         {editProductId === product.id
-          ? <input type="number" value={editedProduct.price || ''} onChange={(e) => handleInputChange(e, 'price')} />
+          ? <input className="input-field" type="number" value={editedProduct.price || ''} onChange={(e) => handleInputChange(e, 'price')} />
           : product.price}
       </td>
       <td>
         {editProductId === product.id
           ? (
-            <select value={editedProduct.category || ''} onChange={(e) => handleInputChange(e, 'category')}>
+            <select className="input-field" value={editedProduct.category || ''} onChange={(e) => handleInputChange(e, 'category')}>
               <option value="">--Select Category--</option>
               <option value="Fruits">Fruits</option>
               <option value="Vegetables">Vegetables</option>
@@ -105,25 +114,32 @@ const List = () => {
       </td>
       <td>
         {editProductId === product.id
-          ? <input value={editedProduct.description || ''} onChange={(e) => handleInputChange(e, 'description')} />
+          ? <input className="input-field" value={editedProduct.description || ''} onChange={(e) => handleInputChange(e, 'description')} />
           : product.description}
+      </td>
+     
+      <td>
+        {editProductId === product.id
+          ? <input className="input-field" type="text" value={editedProduct.imagePath || ''} onChange={(e) => handleInputChange(e, 'image')} />
+          : <img className="product-image" src={`${product.imagePath}`|| '/default-image.jpg'} alt={product.name} />}
       </td>
       <td>
         {editProductId === product.id ? (
           <>
-            <button className='btn btn-success save-btn' onClick={handleSave}>Save</button>
-            <button className='btn btn-secondary cancel-btn' onClick={handleCancel} style={{ marginLeft: "10px" }}>Cancel</button>
+            <button className="btn save-btn" onClick={handleSave}>Save</button>
+            <button className="btn cancel-btn" onClick={handleCancel} style={{ marginLeft: "10px" }}>Cancel</button>
           </>
         ) : (
           <>
-            <button className='btn btn-warning edit-btn' onClick={() => handleEdit(product)}>Edit</button>
-            <button className='btn btn-danger' onClick={() => handleDelete(product.id)} style={{ marginLeft: "10px" }}>Delete</button>
+            <button className="btn edit-btn" onClick={() => handleEdit(product)}>Edit</button>
+            <button className="btn delete-btn" onClick={() => handleDelete(product.id)} style={{ marginLeft: "10px" }}>Delete</button>
           </>
         )}
       </td>
     </tr>
   )}
 </tbody>
+
 
         </table>
       </div>

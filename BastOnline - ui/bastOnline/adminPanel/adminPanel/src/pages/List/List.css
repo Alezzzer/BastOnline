@@ -1,4 +1,4 @@
-table {
+/* table {
     border: 1px solid darkolivegreen;
     text-align: center;
     width: 100%;
@@ -24,4 +24,91 @@ button{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+} */
+
+/* Osnovni stil za tabelu */
+table {
+  background-color: lightyellow;
+  color: darkolivegreen;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+}
+
+td, th {
+  padding: 12px;
+  text-align: left;
+  border: 3px solid #ddd;
+}
+
+input, select {
+  padding: 8px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="text"] {
+  width: 100%;
+}
+
+/* Stil za slike proizvoda */
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+/* Dugmadi */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.save-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.edit-btn {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+}
+
+.edit-btn:hover {
+  background-color: #e68900;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+/* Hover efekat za redove u tabeli */
+tr:hover {
+  background-color: #f1f1f1;
 }

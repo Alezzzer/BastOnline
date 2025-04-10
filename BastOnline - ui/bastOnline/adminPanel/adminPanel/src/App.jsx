@@ -7,7 +7,7 @@ import Add from './pages/Add/Add'
 import List from './pages/List/List'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Users from './pages/User/Users'
 
 const App = () => {
