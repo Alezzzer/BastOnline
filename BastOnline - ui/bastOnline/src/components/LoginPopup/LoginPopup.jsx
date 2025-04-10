@@ -14,11 +14,21 @@ const LoginPopup = ({setShowLogin}) => {
                 <img onClick={()=>setShowLogin(false)} src={assets.cross_icon} alt=''/>
             </div>
             <div className="login-popup-input">
-                {currState==="Log in"?<></>: <input type="text" placeholder='Your name' required />}
-                <input type="email" placeholder='Your email' required />
-                <input type="password" placeholder='Password' required/>
+             {currState === "Log in" ? (
+                        <>
+                        
+                        </>
+                    ) : (
+                        <>
+                        <input type="text" placeholder="Your name" required />
+                        <input type="text" placeholder="Your address" required />
+                        <input type="tel" placeholder="Your phone" required />
+                        </>
+                    )}
+            <input type="email" placeholder="Your email" required />
+            <input type="password" placeholder="Password" required />
             </div>
-            <button>{currState==="Sign up"?"Create account":"Log in"}</button>
+             <button>{currState==="Sign up"?"Create account":"Log in"}</button>
             <div className="login-popup-condition">
                 <input type="checkbox" required />
                 <p>By continuing, I agree to the terms of use & privacy policiy.</p>

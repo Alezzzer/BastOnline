@@ -23,6 +23,6 @@ public class OrderManagerDto {
     private String userEmail;
     private String userAddress;
     private String userPhone;
-    private List<Product> products;
+    private List<OrderItemDto> items;
    
 }

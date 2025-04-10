@@ -7,9 +7,12 @@ import { StoreContext } from '../../context/StoreContext';
 const Navbar = ({ setShowLogin }) => {
     const [menu, setMenu] = useState("home");
     const [searchQuery, setSearchQuery] = useState("");
-    const { getTotalCartAmount } = useContext(StoreContext);
+    const { getTotalCartAmount, clearCart } = useContext(StoreContext);
     const navigate = useNavigate();
     const location = useLocation();
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showUserMenu, setShowUserMenu] = useState(false);
 
     const handleSearchKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -61,13 +64,20 @@ const Navbar = ({ setShowLogin }) => {
         }
     };
 
+    const handleSignOut = () => {
+        setIsLoggedIn(false);
+        clearCart();
+        setShowUserMenu(false);
+        navigate("/");
+    };
+
     return (
         <div className='navbar'>
-            <Link to='/'><img src={assets.logo} alt="" className="logo" /></Link>
+            <Link to='/'><img src={assets.logo} alt="Logo" className="logo" /></Link>
             <ul className="navbar-menu">
                 <Link to='/' onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Home</Link>
                 <a onClick={scrollToProducts} className={menu === "products" ? "active" : ""}>Products</a>
-                <a onClick={scrollToContact} className={menu === "contactUs" ? "active" : ""}>Contact us</a>
+                <a onClick={scrollToContact} className={menu === "contact" ? "active" : ""}>Contact us</a>
             </ul>
             <div className='navbar-right'>
                 <input
@@ -79,10 +89,36 @@ const Navbar = ({ setShowLogin }) => {
                     onKeyDown={handleSearchKeyDown}
                 />
                 <div className="navbar-search-icon">
-                    <Link to='/cart'><img src={assets.shoppingBasket} alt="" /></Link>
+                    <Link to='/cart'><img src={assets.shoppingBasket} alt="Cart" /></Link>
                     <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
                 </div>
-                <button onClick={() => setShowLogin(true)}>Sign in</button>
+
+                {isLoggedIn ? (
+                    <div className="navbar-user-menu">
+                        <img
+                            src={assets.usericon}
+                            alt="User"
+                            className="navbar-user-icon"
+                            onClick={() => setShowUserMenu(!showUserMenu)}
+                        />
+                        {showUserMenu && (
+                            <div className="user-dropdown">
+                                <Link to="/profile" onClick={() => setShowUserMenu(false)}>My Profile</Link>
+                                <Link to="/myorders" onClick={() => setShowUserMenu(false)}>My Orders</Link>
+                                <button onClick={handleSignOut}>Sign out</button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <button
+                        onClick={() => {
+                            setShowLogin(true);
+                            setTimeout(() => setIsLoggedIn(true), 500); // Simulacija login-a
+                        }}
+                    >
+                        Sign in
+                    </button>
+                )}
             </div>
         </div>
     );
