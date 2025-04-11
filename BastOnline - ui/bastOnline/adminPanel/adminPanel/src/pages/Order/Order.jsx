@@ -13,7 +13,7 @@ const Order = () => {
       setOrders(response.data);
       console.log(response.data);
     } catch (error) {
-      console.error('Greška pri dohvatanju porudžbina:', error);
+      console.error('Error while fetching', error);
     }
   };
 
@@ -57,6 +57,7 @@ const Order = () => {
                 <h4>User Info</h4>
                 <p><strong>Name:</strong> {order.userName}</p>
                 <p><strong>Address:</strong> {order.userAddress}</p>
+                <p><strong>City:</strong> {order.userCity}</p>
                 <p><strong>Phone:</strong> {order.userPhone}</p>
               </div>
 

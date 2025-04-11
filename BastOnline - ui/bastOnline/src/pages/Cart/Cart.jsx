@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { assets } from "../../assets/assets";
 import "./Cart.css";
@@ -10,10 +11,19 @@ const Cart = () => {
     products,
     addToCart,
     removeFromCart,
-    getTotalCartAmount
+    getTotalCartAmount,
   } = useContext(StoreContext);
 
+  const navigate = useNavigate();
   const totalAmount = getTotalCartAmount();
+
+  const handleProceedToCheckout = () => {
+    if (totalAmount > 0) {
+      navigate("/checkout");
+    } else {
+      alert("Your cart is empty!");
+    }
+  };
 
   return (
     <div className="cart">
@@ -22,19 +32,22 @@ const Cart = () => {
         <p>Product</p>
         <p>Price</p>
         <p>Quantity</p>
-        <p>SubTotal</p>
+        <p>Subtotal</p>
         <p>Update</p>
       </div>
-      
 
       {products.map((product) => {
         const quantity = cartItems[product.id];
         if (!quantity) return null;
+        console.log("Cart product:", product);
 
         return (
           <div key={product.id} className="cart-items-row">
             <div className="cart-col image-col">
-              <img src={product.image || "/default-image.jpg"} alt={product.name} />
+            <img
+  src={product.image || "/default-image.jpg"}
+  alt={product.name}
+/>
             </div>
             <div className="cart-col name-col">{product.name}</div>
             <div className="cart-col price-col">${product.price}</div>
@@ -42,7 +55,7 @@ const Cart = () => {
               {quantity} {product.category === "Eggs" ? "pcs" : "kg"}
             </div>
             <div className="cart-col subtotal-col">
-              ${product.price * quantity}
+              ${(product.price * quantity).toFixed(2)}
             </div>
             <div className="cart-col update-col">
               <div className="cart-item-counter">
@@ -67,7 +80,6 @@ const Cart = () => {
         <div className="cart-bottom">
           <div className="cart-total">
             <h2>Cart Total</h2>
-
             <div className="cart-total-details">
               <p>Delivery</p>
               <p>Free</p>
@@ -77,10 +89,14 @@ const Cart = () => {
               <b>Total</b>
               <b>${totalAmount.toFixed(2)}</b>
             </div>
-            <Link to="/checkout">
-              <button>Proceed to Checkout</button>
-            </Link>
+            <button onClick={handleProceedToCheckout}>Proceed to Checkout</button>
           </div>
+        </div>
+      )}
+
+      {totalAmount === 0 && (
+        <div className="empty-cart-message">
+          <h3>Your cart is empty!</h3>
         </div>
       )}
     </div>

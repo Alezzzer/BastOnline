@@ -85,3 +85,6 @@ const StoreContextProvider = ({ children }) => {
 };
 
 export default StoreContextProvider;
+import { useContext } from "react";
+
+export const useStore = () => useContext(StoreContext);

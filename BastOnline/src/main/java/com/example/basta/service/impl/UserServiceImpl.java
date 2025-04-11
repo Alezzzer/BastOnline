@@ -23,6 +23,7 @@ import com.example.basta.repository.CartRepository;
 import com.example.basta.repository.OrderRepository;
 import com.example.basta.repository.ProductRepository;
 import com.example.basta.repository.UserRepository;
+import com.example.basta.service.EmailService;
 import com.example.basta.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
     private CartRepository cartRepo;
     private OrderRepository orderRepo;
     private ModelMapper modelMapper;
+    private final EmailService emailService;
 
     @Override
     public UserDto myProfile(Long id) {
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
         user.setPhone(userDto.getPhone());
-        user.setUsername(userDto.getUsername());
+        user.setCity(userDto.getCity());
 
         User updatedUser = userRepo.save(user);
         return modelMapper.map(updatedUser, UserDto.class);
@@ -168,6 +170,12 @@ public class UserServiceImpl implements UserService {
         cart.getItems().clear();
         cart.setTotalPrice(0);
         cartRepo.save(cart);
+        
+        String userName = order.getUser().getName();
+        String userEmail = order.getUser().getEmail();
+
+       
+        emailService.orderEmail(userEmail, userName);
 
         return mapToOrderDto(order);
     }
@@ -191,6 +199,7 @@ public class UserServiceImpl implements UserService {
         dto.setApproved(order.getApproved());
         dto.setFinalPrice(order.getFinalPrice());
         dto.setOrderDate(order.getOrderDate());
+        dto.setUserCity(order.getUser().getCity());
         dto.setUserName(order.getUser().getName());
         dto.setUserAddress(order.getUser().getAddress());
         dto.setUserPhone(order.getUser().getPhone());
