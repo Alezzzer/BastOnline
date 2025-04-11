@@ -27,14 +27,16 @@ const UserOrders = ({ userId }) => {
           <p>No orders found.</p>
         ) : (
           orders.map((order, index) => (
+          
             <div key={index} className="myorders-item">
               <img src={assets.parcel_icon} alt="parcel" />
-
+            
               <div className="myorders-columns">
                 <div className="myorders-col">
                   <h4>Products</h4>
                   <p className="myorders-item-product">
                     {order.items?.map((item, i) => (
+                        
                       <span key={i}>
                         {item.product.name} x {item.quantity} {item.product.category === 'Eggs' ? 'pcs' : 'kg'}
                         {i < order.items.length - 1 ? ', ' : ''}
@@ -47,6 +49,7 @@ const UserOrders = ({ userId }) => {
                   <h4>Shipping Info</h4>
                   <p><strong>Name:</strong> {order.userName || 'N/A'}</p>
                   <p><strong>Address:</strong> {order.userAddress || 'N/A'}</p>
+                  <p><strong>City:</strong> {order.userCity|| 'N/A'}</p>
                   <p><strong>Phone:</strong> {order.userPhone || 'N/A'}</p>
                 </div>
 

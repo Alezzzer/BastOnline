@@ -32,8 +32,6 @@ public class User {
 	
 	private String name;
 	
-	@Column(nullable=false, unique=true)
-	private String username;
 	
 	@Column(nullable=false, unique=true)
 	private String email;
@@ -41,6 +39,8 @@ public class User {
 	@Column(nullable=false)
 	private String address;
 	
+	@Column(nullable=false)
+	private String city;
 	
 	@Column(nullable=false)
 	private String password;

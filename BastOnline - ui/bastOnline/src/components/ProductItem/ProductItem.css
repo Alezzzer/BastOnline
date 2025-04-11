@@ -22,19 +22,19 @@
 .product-item-name{
     font-size: 20px;
     font-weight: 500;
-    color: darkolivegreen;
+    color: darkgreen;
     font-weight: bold; 
 
 
 }
 
 .product-item-desc{
-    color: darkolivegreen;
+    color: darkgreen;
     font-size: 15px;
 }
 
 .product-item-price{
-    color: darkolivegreen;
+    color: darkgreen;
     font-size: 20px;
     font-weight: bold;
     margin: 10px 0px;

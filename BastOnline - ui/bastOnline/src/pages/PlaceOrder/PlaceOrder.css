@@ -1,45 +1,101 @@
-to je to 
-.place-order{
+.place-order {
     display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: 50px;
-    margin-top: 100px;
-}
-
-.place-order-left{
-    width: 100%;
-    max-width: max(30%,500px);
-}
-
-.place-order-left .title{
-    font-size: 30px;
-    font-weight: 500;
-    margin-bottom: 30px;
-    margin-top: -4px;
-    color: green;
-}
-
-.place-order-left input{
-    margin-bottom: 15px;
-    width: 100%;
+    gap: 40px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+    color: darkgreen;
+  }
+  
+  .place-order-left {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .place-order-left .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .place-order-left label {
+    font-weight: 600;
+  }
+  
+  .place-order-left input {
     padding: 10px;
-    border: 1px solid darkolivegreen;
-    border-radius: 4px;
-    outline-color: green;
-}
-
-.place-order-left .multi-fields{
-    display: flex;
-    gap: 10px;
-}
-
-.place-order-right{
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .place-order-left .save-changes-button {
+    margin-top: 10px;
+    padding: 12px 0;
     width: 100%;
-    max-width:(40%,500px) ;
-}
-
-.place-order .cart-total button{
-    margin-top: 30px;
-
-}
+    background-color: #4CAF50; /* zelena kao ORDER dugme */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .place-order-left .save-changes-button:hover {
+    background-color: #45a049;
+  }
+  
+  .place-order-right {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .cart-total {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .cart-total h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  
+  .cart-product-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .cart-total-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .cart-total button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #4CAF50; /* zelena */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-total button:hover {
+    background-color: #45a049;
+  }
+  
