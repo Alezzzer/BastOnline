@@ -22,7 +22,7 @@ const Footer = () => {
   <ul>
     <li>
       <MdEmail className="icon" />
-      <a href="mailto:contact@farmonline.com" className="info-link">contact@farmonline.com</a>
+      <a href="mailto:contactfarmonline@gmail.com" className="info-link">contactfarmonline@gmail.com</a>
     </li>
     <li>
       <MdPhone className="icon" />

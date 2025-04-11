@@ -40,17 +40,20 @@ const MyProfile = () => {
         <div className="profile-details">
           <p><b>Name:</b> {userData.name}</p>
           <p><b>Email:</b> {userData.email}</p>
-          <p><b>Phone:</b> {userData.phone}</p>
           <p><b>Address:</b> {userData.address}</p>
+          <p><b>City:</b> {userData.city}</p>
+          <p><b>Phone:</b> {userData.phone}</p>
           <button onClick={() => setEditMode(true)}>Edit Profile</button>
         </div>
       ) : (
         <div className="profile-form">
           <label>Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></label>
           <label>Email: <input type="email" name="email" value={formData.email} onChange={handleChange} /></label>
-          <label>Phone: <input type="text" name="phone" value={formData.phone} onChange={handleChange} /></label>
           <label>Address: <input type="text" name="address" value={formData.address} onChange={handleChange} /></label>
+          <label>City: <input type="text" name="city" value={formData.city} onChange={handleChange} /></label>
+          <label>Phone: <input type="text" name="phone" value={formData.phone} onChange={handleChange} /></label>
           <label>Password: <input type="password" name="password" value={formData.password} onChange={handleChange} /></label>
+          
 
           <button onClick={handleUpdate}>Save Changes</button>
           <button onClick={() => setEditMode(false)}>Cancel</button>

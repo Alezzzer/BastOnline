@@ -64,6 +64,7 @@ public class ManagerServiceImplementation implements ManagerService {
             dto.setApproved(order.getApproved());
             dto.setUserName(userDto.getName());
             dto.setUserAddress(userDto.getAddress());
+            dto.setUserCity(userDto.getCity());
             dto.setUserEmail(userDto.getEmail());
             dto.setUserPhone(userDto.getPhone());
 

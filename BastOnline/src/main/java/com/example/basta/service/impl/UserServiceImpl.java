@@ -170,6 +170,9 @@ public class UserServiceImpl implements UserService {
         cart.getItems().clear();
         cart.setTotalPrice(0);
         cartRepo.save(cart);
+        
+        String userName = order.getUser().getName();
+        String userEmail = order.getUser().getEmail();
 
         String userName = order.getUser().getName();
         String userEmail = order.getUser().getEmail();

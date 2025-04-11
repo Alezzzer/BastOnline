@@ -105,7 +105,7 @@ const Navbar = ({ setShowLogin }) => {
                             <div className="user-dropdown">
                                 <Link to="/profile" onClick={() => setShowUserMenu(false)}>My Profile</Link>
                                 <Link to="/myorders" onClick={() => setShowUserMenu(false)}>My Orders</Link>
-                                <button onClick={handleSignOut}>Sign out</button>
+                                <button onClick={handleSignOut}>Log out</button>
                             </div>
                         )}
                     </div>

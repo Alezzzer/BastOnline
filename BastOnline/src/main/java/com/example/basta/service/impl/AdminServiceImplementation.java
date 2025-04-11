@@ -73,20 +73,52 @@ public class AdminServiceImplementation implements AdminService {
 	                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found!"));
 	        ur.deleteById(id);
 	    }
-	@Override
-	public ProductDto updateProduct(ProductDto productDto, Long id) {
-		Product product = pr.findById(id).orElseThrow(() -> 
-		new ResourceNotFoundException("Product with id: " + id + "is not found!"));
-		product.setName(productDto.getName());
-		product.setDescription(productDto.getDescription());
-		product.setCategory(productDto.getCategory());
-		product.setKilograms(productDto.getKilograms());
-		product.setPrice(productDto.getPrice());
-		product.setImagePath(productDto.getImagePath());
-		Product prod = pr.save(product);
-		ProductDto updatedProduct = modelMapper.map(prod, ProductDto.class);
-		return updatedProduct;
-	}
+	 
+	 
+	 public ProductDto updateProduct(ProductDto productDto, MultipartFile imageFile, Long id) throws IOException {
+		    Product product = pr.findById(id)
+		            .orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " is not found!"));
+
+		    product.setName(productDto.getName());
+		    product.setDescription(productDto.getDescription());
+		    product.setCategory(productDto.getCategory());
+		    product.setKilograms(productDto.getKilograms());
+		    product.setPrice(productDto.getPrice());
+
+		    if (imageFile != null && !imageFile.isEmpty()) {
+		        // Obriši staru sliku ako postoji
+		        if (product.getImagePath() != null) {
+		            File oldImage = new File(product.getImagePath());
+		            if (oldImage.exists()) {
+		                oldImage.delete();
+		            }
+		        }
+
+		        // Sačuvaj novu sliku
+		        String imageName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
+		        File dir = new File(imageDirectory);
+		        if (!dir.exists()) {
+		            dir.mkdirs();
+		        }
+
+		        File imagePath = new File(dir, imageName);
+		        try (FileOutputStream fos = new FileOutputStream(imagePath)) {
+		            fos.write(imageFile.getBytes());
+		        }
+
+		        product.setImagePath(imagePath.getPath());
+		    }
+
+		    Product savedProduct = pr.save(product);
+		    ProductDto updatedProductDto = modelMapper.map(savedProduct, ProductDto.class);
+
+		    if (savedProduct.getImagePath() != null) {
+		        String imageUrl = "http://localhost:8080/images/" + new File(savedProduct.getImagePath()).getName();
+		        updatedProductDto.setImagePath(imageUrl);
+		    }
+
+		    return updatedProductDto;
+		}
 	
 	
 
