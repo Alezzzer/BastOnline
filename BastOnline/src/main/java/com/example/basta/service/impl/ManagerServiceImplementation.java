@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.basta.dtos.OrderItemDto;
-import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.OrderManagerDto;
 import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
@@ -15,6 +14,7 @@ import com.example.basta.entity.Order;
 import com.example.basta.entity.OrderItem;
 import com.example.basta.exception.ResourceNotFoundException;
 import com.example.basta.repository.OrderRepository;
+import com.example.basta.service.EmailService;
 import com.example.basta.service.ManagerService;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +25,7 @@ public class ManagerServiceImplementation implements ManagerService {
 
     private final OrderRepository orderRepo;
     private final ModelMapper modelMapper;
+    private final EmailService emailService;
 
     @Override
     public OrderManagerDto getOrder(Long id) {
@@ -42,6 +43,7 @@ public class ManagerServiceImplementation implements ManagerService {
         dto.setUserAddress(userDto.getAddress());
         dto.setUserEmail(userDto.getEmail());
         dto.setUserPhone(userDto.getPhone());
+        dto.setUserCity(userDto.getCity());
 
         List<OrderItemDto> items = order.getItems().stream().map(this::mapToOrderItemDto).collect(Collectors.toList());
         dto.setItems(items);
@@ -79,7 +81,11 @@ public class ManagerServiceImplementation implements ManagerService {
 
         order.setApproved(true);
         orderRepo.save(order);
+        String userName = order.getUser().getName();
+        String userEmail = order.getUser().getEmail();
 
+       
+        emailService.sendOrderApprovedEmail(userEmail, userName);
         return getOrder(id); // reuse the logic
     }
 

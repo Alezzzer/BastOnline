@@ -18,4 +18,5 @@ public class OrderDto {
     private String userName;
     private String userAddress;
     private String userPhone;
+    private String userCity;
 }

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.example.basta.dtos.CartDto;
 import com.example.basta.dtos.OrderDto;
 import com.example.basta.dtos.OrderItemDto;
+import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
 import com.example.basta.entity.Cart;
 import com.example.basta.entity.CartItem;
 import com.example.basta.entity.Order;
 import com.example.basta.entity.OrderItem;
-import com.example.basta.dtos.ProductDto;
 import com.example.basta.entity.Product;
 import com.example.basta.entity.User;
 import com.example.basta.exception.ResourceNotFoundException;
@@ -23,6 +23,7 @@ import com.example.basta.repository.CartRepository;
 import com.example.basta.repository.OrderRepository;
 import com.example.basta.repository.ProductRepository;
 import com.example.basta.repository.UserRepository;
+import com.example.basta.service.EmailService;
 import com.example.basta.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +37,8 @@ public class UserServiceImpl implements UserService {
     private CartRepository cartRepo;
     private OrderRepository orderRepo;
     private ModelMapper modelMapper;
-
+    private final EmailService emailService;
+    
     @Override
     public UserDto myProfile(Long id) {
         User user = userRepo.findById(id)
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
         user.setPhone(userDto.getPhone());
-        user.setUsername(userDto.getUsername());
+        user.setCity(userDto.getCity());
 
         User updatedUser = userRepo.save(user);
         return modelMapper.map(updatedUser, UserDto.class);
@@ -169,6 +171,12 @@ public class UserServiceImpl implements UserService {
         cart.setTotalPrice(0);
         cartRepo.save(cart);
 
+        String userName = order.getUser().getName();
+        String userEmail = order.getUser().getEmail();
+
+       
+        emailService.orderEmail(userEmail, userName);
+        
         return mapToOrderDto(order);
     }
 
@@ -191,6 +199,7 @@ public class UserServiceImpl implements UserService {
         dto.setApproved(order.getApproved());
         dto.setFinalPrice(order.getFinalPrice());
         dto.setOrderDate(order.getOrderDate());
+        dto.setUserCity(order.getUser().getCity());
         dto.setUserName(order.getUser().getName());
         dto.setUserAddress(order.getUser().getAddress());
         dto.setUserPhone(order.getUser().getPhone());
