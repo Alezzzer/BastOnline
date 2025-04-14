@@ -26,7 +26,7 @@ public class SecurityConfig {
 	private UserDetailsService userDetailsService;
 	
 	@Bean
-	public static PasswordEncoder passwordEncoder() {
+	public  PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	@Bean
@@ -34,6 +34,10 @@ public class SecurityConfig {
 		http.csrf().disable()
 		.authorizeHttpRequests((authorize) ->{
 			authorize.requestMatchers("/api/auth/**").permitAll();
+			 authorize.requestMatchers("/api/admin/getProducts").permitAll();
+			 authorize.requestMatchers("/images/**").permitAll();
+			 authorize.requestMatchers("/api/admin/getProduct/**").permitAll();
+			 authorize.requestMatchers("/api/admin/getUser/**").permitAll();
 			authorize.anyRequest().authenticated();
 		}).httpBasic(Customizer.withDefaults() );
 		return http.build();
