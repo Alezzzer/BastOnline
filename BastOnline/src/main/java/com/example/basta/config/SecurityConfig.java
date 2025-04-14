@@ -12,9 +12,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.basta.entity.Role;
 import com.example.basta.repository.RoleRepository;
+import com.example.basta.security.JwtAuthenticationEntryPoint;
+import com.example.basta.security.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
 
@@ -24,7 +27,8 @@ import lombok.AllArgsConstructor;
 public class SecurityConfig {
 	
 	private UserDetailsService userDetailsService;
-	
+	private JwtAuthenticationEntryPoint authEntryPoint;
+	private JwtAuthenticationFilter authFilter;
 	@Bean
 	public  PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -40,6 +44,9 @@ public class SecurityConfig {
 			 authorize.requestMatchers("/api/admin/getUser/**").permitAll();
 			authorize.anyRequest().authenticated();
 		}).httpBasic(Customizer.withDefaults() );
+		
+		http.exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint));
+		http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 	

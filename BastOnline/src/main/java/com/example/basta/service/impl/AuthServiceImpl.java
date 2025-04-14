@@ -18,6 +18,7 @@ import com.example.basta.entity.User;
 import com.example.basta.exception.BastAPIException;
 import com.example.basta.repository.RoleRepository;
 import com.example.basta.repository.UserRepository;
+import com.example.basta.security.JwtTokenProvider;
 import com.example.basta.service.AuthService;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class AuthServiceImpl implements AuthService{
 	private RoleRepository rr;
 	private PasswordEncoder pe;
 	private AuthenticationManager am;
+	private JwtTokenProvider jwtTokenProvider;
 	
 	@Override
 	public String register(RegisterDto reg) {
@@ -72,7 +74,9 @@ public class AuthServiceImpl implements AuthService{
 						log.getPassword()));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "Login successfully";
+		String token = jwtTokenProvider.generateToken(authentication);
+		
+		return token;
 	}
 
 }
