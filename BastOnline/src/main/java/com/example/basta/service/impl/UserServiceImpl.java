@@ -174,8 +174,7 @@ public class UserServiceImpl implements UserService {
         String userName = order.getUser().getName();
         String userEmail = order.getUser().getEmail();
 
-        String userName = order.getUser().getName();
-        String userEmail = order.getUser().getEmail();
+     
 
        
         emailService.orderEmail(userEmail, userName);

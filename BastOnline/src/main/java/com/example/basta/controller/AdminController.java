@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,11 +82,15 @@ public class AdminController {
 		return new ResponseEntity<>("User with id: " + userId + "is successfully deleted!", HttpStatus.OK);
 	}
 	 @PreAuthorize ("hasAnyRole('ADMIN','MANAGER')")
-	@PutMapping("updateProduct/{id}")
-	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto p, @PathVariable("id") Long productId){
-		ProductDto productDto = aService.updateProduct(p, productId);
-		return new ResponseEntity<>(productDto,HttpStatus.OK);
-	}
+	 @PutMapping(value = "/updateProduct/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	 public ResponseEntity<ProductDto> updateProduct(
+	         @RequestPart("product") ProductDto productDto,
+	         @RequestPart(value = "imageFile", required = false) MultipartFile imageFile,
+	         @PathVariable("id") Long productId) throws IOException {
+
+	     ProductDto updatedProduct = aService.updateProduct(productDto, imageFile, productId);
+	     return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+	 }
 }
 
 
