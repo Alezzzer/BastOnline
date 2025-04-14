@@ -47,10 +47,10 @@ public class AuthServiceImpl implements AuthService{
 		user.setCity(reg.getCity());
 	
 		
-		 Role defaultRole = rr.findById(2L)
+		 Role defaultRole = rr.findByName("USER")
 			        .orElseThrow(() -> new RuntimeException("Default role not found"));
 
-			    user.setRoles(Set.of(defaultRole));
+			    user.setRole(defaultRole);
 
 			    ur.save(user);
 //		Set<Role> roles = new HashSet<>();
