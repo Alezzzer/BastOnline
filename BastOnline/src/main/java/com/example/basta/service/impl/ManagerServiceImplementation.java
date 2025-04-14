@@ -43,6 +43,7 @@ public class ManagerServiceImplementation implements ManagerService {
         dto.setUserAddress(userDto.getAddress());
         dto.setUserEmail(userDto.getEmail());
         dto.setUserPhone(userDto.getPhone());
+        dto.setUserCity(userDto.getCity());
 
         List<OrderItemDto> items = order.getItems().stream().map(this::mapToOrderItemDto).collect(Collectors.toList());
         dto.setItems(items);
@@ -81,14 +82,11 @@ public class ManagerServiceImplementation implements ManagerService {
 
         order.setApproved(true);
         orderRepo.save(order);
-
-        
         String userName = order.getUser().getName();
         String userEmail = order.getUser().getEmail();
 
        
         emailService.sendOrderApprovedEmail(userEmail, userName);
-
         return getOrder(id); // reuse the logic
     }
 

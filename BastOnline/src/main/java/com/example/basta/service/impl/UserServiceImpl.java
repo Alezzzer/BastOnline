@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.example.basta.dtos.CartDto;
 import com.example.basta.dtos.OrderDto;
 import com.example.basta.dtos.OrderItemDto;
+import com.example.basta.dtos.ProductDto;
 import com.example.basta.dtos.UserDto;
 import com.example.basta.entity.Cart;
 import com.example.basta.entity.CartItem;
 import com.example.basta.entity.Order;
 import com.example.basta.entity.OrderItem;
-import com.example.basta.dtos.ProductDto;
 import com.example.basta.entity.Product;
 import com.example.basta.entity.User;
 import com.example.basta.exception.ResourceNotFoundException;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     private OrderRepository orderRepo;
     private ModelMapper modelMapper;
     private final EmailService emailService;
-
+    
     @Override
     public UserDto myProfile(Long id) {
         User user = userRepo.findById(id)
@@ -174,9 +174,12 @@ public class UserServiceImpl implements UserService {
         String userName = order.getUser().getName();
         String userEmail = order.getUser().getEmail();
 
+        String userName = order.getUser().getName();
+        String userEmail = order.getUser().getEmail();
+
        
         emailService.orderEmail(userEmail, userName);
-
+        
         return mapToOrderDto(order);
     }
 

@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import MyProfile from './pages/MyProfile/MyProfile'
 import UserOrders from './pages/UserOrders/UserOrders'
+import Register from './components/Auth/Register'
 const App = () => {
 
   const [showLogin, setShowLogin] = useState(false)
@@ -23,6 +24,7 @@ const App = () => {
       <Route path ='/checkout' element={<PlaceOrder />}/>
       <Route path="/profile" element={<MyProfile />} />
       <Route path="/myorders" element={<UserOrders userId={1} />}/>
+      <Route path='/register' element = {<Register />}></Route>
    
     </Routes>
    </div>
