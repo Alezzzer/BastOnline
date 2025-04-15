@@ -11,23 +11,31 @@ const PlaceOrder = () => {
     getTotalCartAmount,
     cartItems,
     products,
-    clearCart
+    clearCart,
+    user,
   } = useContext(StoreContext);
 
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState({});
   const [isEdited, setIsEdited] = useState(false);
-  const userId = 1; 
   const navigate = useNavigate();
 
+  const userId = user?.id;
+
   useEffect(() => {
+    if (!userId) {
+      toast.warn("Please log in to place an order.");
+      navigate("/login");
+      return;
+    }
+
     axios.get(`http://localhost:8080/api/farm/myprofile/${userId}`)
       .then(res => {
         setUserData(res.data);
         setFormData(res.data);
       })
       .catch(err => console.error("Error while fetching data:", err));
-  }, []);
+  }, [userId, navigate]);
 
   const handleChange = (e) => {
     setIsEdited(true);
@@ -120,20 +128,20 @@ const PlaceOrder = () => {
             onChange={handleChange}
           />
 
-              {isEdited && (
-                <button
-                  type="button"
-                  className="save-changes-button"
-                  onClick={handleSaveChanges}
-                >
-                  Save Changes
-                </button>
-              )}
+          {isEdited && (
+            <button
+              type="button"
+              className="save-changes-button"
+              onClick={handleSaveChanges}
+            >
+              Save Changes
+            </button>
+          )}
         </div>
 
         <div className="place-order-right">
           <div className="cart-total">
-          <h2> <strong>Order Summary</strong> </h2>
+            <h2><strong>Order Summary</strong></h2>
             <hr />
 
             {orderedProducts.map((product, index) => (

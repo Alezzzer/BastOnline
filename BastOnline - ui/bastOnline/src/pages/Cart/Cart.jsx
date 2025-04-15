@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { assets } from "../../assets/assets";
+import LoginPopup from "../../components/LoginPopup/LoginPopup"; // prilagodi path ako treba
 import "./Cart.css";
 
 const Cart = () => {
@@ -12,12 +13,20 @@ const Cart = () => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
+    user,
   } = useContext(StoreContext);
 
   const navigate = useNavigate();
   const totalAmount = getTotalCartAmount();
 
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
   const handleProceedToCheckout = () => {
+    if (!user) {
+      setShowLoginPopup(true);
+      return;
+    }
+
     if (totalAmount > 0) {
       navigate("/checkout");
     } else {
@@ -39,15 +48,11 @@ const Cart = () => {
       {products.map((product) => {
         const quantity = cartItems[product.id];
         if (!quantity) return null;
-        console.log("Cart product:", product);
 
         return (
           <div key={product.id} className="cart-items-row">
             <div className="cart-col image-col">
-            <img
-  src={product.image || "/default-image.jpg"}
-  alt={product.name}
-/>
+              <img src={product.image || "/default-image.jpg"} alt={product.name} />
             </div>
             <div className="cart-col name-col">{product.name}</div>
             <div className="cart-col price-col">${product.price}</div>
@@ -76,7 +81,7 @@ const Cart = () => {
         );
       })}
 
-      {totalAmount > 0 && (
+      {totalAmount > 0 ? (
         <div className="cart-bottom">
           <div className="cart-total">
             <h2>Cart Total</h2>
@@ -92,13 +97,13 @@ const Cart = () => {
             <button onClick={handleProceedToCheckout}>Proceed to Checkout</button>
           </div>
         </div>
-      )}
-
-      {totalAmount === 0 && (
+      ) : (
         <div className="empty-cart-message">
           <h3>Your cart is empty!</h3>
         </div>
       )}
+
+      {showLoginPopup && <LoginPopup setShowLogin={setShowLoginPopup} />}
     </div>
   );
 };

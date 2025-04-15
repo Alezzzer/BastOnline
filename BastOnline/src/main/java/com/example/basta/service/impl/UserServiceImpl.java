@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.basta.dtos.CartDto;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     private OrderRepository orderRepo;
     private ModelMapper modelMapper;
     private final EmailService emailService;
-    
+    private final PasswordEncoder passwordEncoder;
     @Override
     public UserDto myProfile(Long id) {
         User user = userRepo.findById(id)
@@ -54,7 +55,8 @@ public class UserServiceImpl implements UserService {
         user.setAddress(userDto.getAddress());
         user.setEmail(userDto.getEmail());
         user.setName(userDto.getName());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         user.setPhone(userDto.getPhone());
         user.setCity(userDto.getCity());
 

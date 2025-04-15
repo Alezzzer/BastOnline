@@ -7,11 +7,10 @@ import { StoreContext } from '../../context/StoreContext';
 const Navbar = ({ setShowLogin }) => {
     const [menu, setMenu] = useState("home");
     const [searchQuery, setSearchQuery] = useState("");
-    const { getTotalCartAmount, clearCart } = useContext(StoreContext);
+    const { getTotalCartAmount, clearCart, user, logout } = useContext(StoreContext);
     const navigate = useNavigate();
     const location = useLocation();
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    console.log("Navbar user:", user);
     const [showUserMenu, setShowUserMenu] = useState(false);
 
     const handleSearchKeyDown = (e) => {
@@ -65,7 +64,7 @@ const Navbar = ({ setShowLogin }) => {
     };
 
     const handleSignOut = () => {
-        setIsLoggedIn(false);
+        logout();
         clearCart();
         setShowUserMenu(false);
         navigate("/");
@@ -93,32 +92,28 @@ const Navbar = ({ setShowLogin }) => {
                     <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
                 </div>
 
-                {isLoggedIn ? (
-                    <div className="navbar-user-menu">
-                        <img
-                            src={assets.usericon}
-                            alt="User"
-                            className="navbar-user-icon"
-                            onClick={() => setShowUserMenu(!showUserMenu)}
-                        />
-                        {showUserMenu && (
-                            <div className="user-dropdown">
-                                <Link to="/profile" onClick={() => setShowUserMenu(false)}>My Profile</Link>
-                                <Link to="/myorders" onClick={() => setShowUserMenu(false)}>My Orders</Link>
-                                <button onClick={handleSignOut}>Log out</button>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <button
-                        onClick={() => {
-                            setShowLogin(true);
-                            setTimeout(() => setIsLoggedIn(true), 500); // Simulacija login-a
-                        }}
-                    >
-                        Sign in
-                    </button>
-                )}
+                {user && user.email ? (
+                    
+  <div className="navbar-user-menu">
+    <img
+    
+      src={assets.usericon}
+      alt="User"
+      className="navbar-user-icon"
+      onClick={() => setShowUserMenu(!showUserMenu)}
+    />
+    {showUserMenu && (
+      <div className="user-dropdown">
+        <Link to="/profile" onClick={() => setShowUserMenu(false)}>My Profile</Link>
+        <Link to="/myorders" onClick={() => setShowUserMenu(false)}>My Orders</Link>
+        <button onClick={handleSignOut}>Log out</button>
+      </div>
+    )}
+  </div>
+) : (
+  <button onClick={() => setShowLogin(true)}>Sign in</button>
+)}
+
             </div>
         </div>
     );

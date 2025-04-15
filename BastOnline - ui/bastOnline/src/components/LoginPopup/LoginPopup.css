@@ -1,10 +1,13 @@
-.login-popup{
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
+.login-popup {
+    position: fixed; /* fiksirano u odnosu na prozor */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: #00000090;
     display: grid;
+    place-items: center; /* centriraj horizontalno i vertikalno */
+    z-index: 999; /* da bude iznad ostalog */
 }
 
 .login-popup-container{

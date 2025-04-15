@@ -36,13 +36,16 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
+		.cors()
+		.and()
 		.authorizeHttpRequests((authorize) ->{
 			authorize.requestMatchers("/api/auth/**").permitAll();
 			 authorize.requestMatchers("/api/admin/getProducts").permitAll();
 			 authorize.requestMatchers("/images/**").permitAll();
 			 authorize.requestMatchers("/api/admin/getProduct/**").permitAll();
 			 authorize.requestMatchers("/api/admin/getUser/**").permitAll();
-			authorize.anyRequest().authenticated();
+			 authorize.requestMatchers("/api/farm/**").permitAll();		
+			 authorize.anyRequest().authenticated();
 		}).httpBasic(Customizer.withDefaults() );
 		
 		http.exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint));

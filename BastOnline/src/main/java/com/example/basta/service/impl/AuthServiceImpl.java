@@ -1,18 +1,17 @@
 package com.example.basta.service.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.basta.dtos.LoginDto;
 import com.example.basta.dtos.RegisterDto;
+import com.example.basta.dtos.UserDto;
 import com.example.basta.entity.Role;
 import com.example.basta.entity.User;
 import com.example.basta.exception.BastAPIException;
@@ -65,6 +64,26 @@ public class AuthServiceImpl implements AuthService{
 		
 	}
 
+	@Override
+	public UserDto getUserByEmailOrUsername(String usernameOrEmail) {
+	    User user = ur.findByEmail(usernameOrEmail)
+	            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+	    return mapToDto(user); // Koristi helper metodu ispod
+	}
+
+	private UserDto mapToDto(User user) {
+	    UserDto dto = new UserDto();
+	    dto.setId(user.getId());
+	    dto.setName(user.getName());
+	    dto.setEmail(user.getEmail());
+	    dto.setAddress(user.getAddress());
+	    dto.setRole(user.getRole().getName());
+	    dto.setPhone(user.getPhone());
+	    dto.setCity(user.getCity());
+	    return dto;
+	}
+	
 	@Override
 	public String login(LoginDto log) {
 		Authentication authentication = 

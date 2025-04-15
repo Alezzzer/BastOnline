@@ -1,33 +1,86 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import jwtDecode from "jwt-decode"; // ispravno bez { } — jer nije export default
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  // Fetch products from backend
+  // 🔐 Login
+  const login = (userData, jwtToken) => {
+    setUser(userData);
+    setToken(jwtToken);
+
+    localStorage.setItem("token", jwtToken);
+    localStorage.setItem("user", JSON.stringify(userData));
+  };
+
+  // 🚪 Logout
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get("token");
+    console.log("🔍 TOKEN from URL:", tokenFromUrl);
+  
+    if (tokenFromUrl) {
+      localStorage.setItem("token", tokenFromUrl);
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  
+    // ⬇️ OVO JE NOVO: fallback na "admin-token"
+    const savedToken = localStorage.getItem("token") || localStorage.getItem("admin-token");
+    const savedUser = localStorage.getItem("user");
+    console.log("📦 LocalStorage token:", savedToken);
+  
+    if (savedToken) {
+      try {
+        const decoded = jwtDecode(savedToken);
+        const now = Date.now() / 1000;
+  
+        if (decoded.exp > now) {
+          setToken(savedToken);
+          setUser(savedUser ? JSON.parse(savedUser) : decoded);
+        } else {
+          logout();
+        }
+      } catch (err) {
+        console.error("Invalid token:", err);
+        logout();
+      }
+    }
+  }, []);
+
+  // 🛒 Products
   useEffect(() => {
     axios.get("http://localhost:8080/api/admin/getProducts")
-      .then((response) => {
-        const productsWithImages = response.data.map(product => ({
+      .then((res) => {
+        const productsWithImages = res.data.map(product => ({
           ...product,
           image: product.imagePath || '/default-image.jpg'
         }));
         setProducts(productsWithImages);
         initializeCart(productsWithImages);
       })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
+      .catch((err) => {
+        console.error("Error fetching products:", err);
       });
   }, []);
 
-  // Initialize cart items with all product ids set to 0
   const initializeCart = (productList) => {
     const cart = {};
-    productList.forEach(product => {
-      cart[product.id] = 0;
+    productList.forEach(p => {
+      cart[p.id] = 0;
     });
     setCartItems(cart);
   };
@@ -74,7 +127,11 @@ const StoreContextProvider = ({ children }) => {
     removeFromCart,
     clearCart,
     getTotalCartAmount,
-    products
+    products,
+    user,
+    token,
+    login,
+    logout,
   };
 
   return (
@@ -86,5 +143,6 @@ const StoreContextProvider = ({ children }) => {
 
 export default StoreContextProvider;
 import { useContext } from "react";
+
 
 export const useStore = () => useContext(StoreContext);
