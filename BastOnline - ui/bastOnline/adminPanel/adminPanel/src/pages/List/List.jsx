@@ -8,6 +8,7 @@ const List = () => {
   const [editProductId, setEditProductId] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
   const [isSaving, setIsSaving] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     listProducts();
@@ -102,6 +103,22 @@ const List = () => {
   return (
     <div className="products-list">
       <h2>List of Products</h2>
+
+      <div>
+        <label htmlFor="categoryFilter"  className='cat'>Filter by Category: </label>
+        <select
+          id="categoryFilter"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Fruits">Fruits</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Eggs">Eggs</option>
+        </select>
+      </div>
+
       <div className="table-container">
         <table>
           <thead>
@@ -116,7 +133,9 @@ const List = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {products
+              .filter(product => selectedCategory === "All" || product.category === selectedCategory)
+              .map((product) => (
               <tr key={product.id}>
                 <td>
                   {editProductId === product.id
