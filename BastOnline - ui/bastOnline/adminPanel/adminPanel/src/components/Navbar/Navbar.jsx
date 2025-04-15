@@ -6,8 +6,13 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
-    // Ovde možeš dodati logiku za čišćenje localStorage/session ako treba
-    window.location.href = 'http://localhost:3005/';
+    // 🧹 Očisti admin sesiju
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin-token");
+    localStorage.removeItem("user");
+
+    // 🔁 Prebaci nazad na user panel
+    window.location.replace("http://localhost:3001/");
   };
 
   return (

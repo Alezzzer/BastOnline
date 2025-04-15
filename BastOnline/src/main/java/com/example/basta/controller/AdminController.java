@@ -85,7 +85,7 @@ public class AdminController {
 	 @PutMapping(value = "/updateProduct/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	 public ResponseEntity<ProductDto> updateProduct(
 	         @RequestPart("product") ProductDto productDto,
-	         @RequestPart(value = "imageFile", required = false) MultipartFile imageFile,
+	         @RequestPart(value = "image", required = false) MultipartFile imageFile,
 	         @PathVariable("id") Long productId) throws IOException {
 
 	     ProductDto updatedProduct = aService.updateProduct(productDto, imageFile, productId);

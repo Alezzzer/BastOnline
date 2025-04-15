@@ -54,19 +54,8 @@ const LoginPopup = ({ setShowLogin }) => {
         toast.success("Registration and login successful");
       }
 
-      if (user.role === "ADMIN") {
-        login(user, accessToken);
-        localStorage.setItem("admin-token", accessToken);
-        localStorage.setItem("user", JSON.stringify(user)); // ✅ DODAJ OVO!
-      
-        setTimeout(() => {
-          console.log("🔁 Redirecting to admin panel...");
-          window.location.replace(`http://localhost:3001?token=${accessToken}`);
-        }, 100);
-      } else {
-        login(user, accessToken);
-        setShowLogin(false);
-      }
+      login(user, accessToken);
+      setShowLogin(false);
 
     } catch (err) {
       toast.error("Something went wrong");

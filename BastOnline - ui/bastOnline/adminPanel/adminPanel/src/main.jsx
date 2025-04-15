@@ -1,28 +1,37 @@
-import React from 'react';
+// src/main.jsx ili index.jsx
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import StoreContextProvider from '../../../src/context/StoreContext.jsx';
 
-// 🛠 Ručno dohvatamo token iz URL-a PRE StoreContext-a
-const urlParams = new URLSearchParams(window.location.search);
-const tokenFromUrl = urlParams.get("token");
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminLoginPopup from './components/AdminLoginPopup/AdminLoginPopup.jsx';
 
-if (tokenFromUrl) {
-  console.log("🟢 Token iz URL-a:", tokenFromUrl);
-  localStorage.setItem("token", tokenFromUrl);
-  // Clean URL bez tokena
-  const cleanUrl = window.location.origin + window.location.pathname;
-  window.history.replaceState({}, document.title, cleanUrl);
-} else {
-  console.log("🔴 Nema tokena u URL-u!");
-}
+const RootApp = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-createRoot(document.getElementById('root')).render(
-  <StoreContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StoreContextProvider>
-);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+  };
+
+  return (
+    <StoreContextProvider>
+      <BrowserRouter>
+        <ToastContainer />
+        {isAuthenticated ? <App /> : <AdminLoginPopup onSuccess={handleLoginSuccess} />}
+      </BrowserRouter>
+    </StoreContextProvider>
+  );
+};
+
+createRoot(document.getElementById('root')).render(<RootApp />);

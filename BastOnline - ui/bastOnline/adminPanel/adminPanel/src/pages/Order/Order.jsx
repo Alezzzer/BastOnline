@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './Order.css';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+
 import { assets } from '../../assets/assets';
+import axiosInstance from '../../axiosInstance';
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/manager/getOrders');
+      const response = await axiosInstance.get('/api/manager/getOrders');
       setOrders(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.error('Error while fetching', error);
+      console.error('Error while fetching orders:', error);
+      toast.error('Failed to load orders');
     }
   };
 
   const approveOrder = async (orderId) => {
     try {
-      await axios.put(`http://localhost:8080/api/manager/${orderId}/approve`);
+      await axiosInstance.put(`/api/manager/${orderId}/approve`);
       toast.success('Order approved!');
       fetchAllOrders();
     } catch (error) {
@@ -38,8 +39,7 @@ const Order = () => {
       <div className="order-list">
         {orders.map((order, index) => (
           <div key={index} className="order-item">
-            <img src={assets.parcel_icon} alt="" />
-
+            <img src={assets.parcel_icon} alt="parcel icon" />
             <div className="order-columns">
               <div className="order-col">
                 <h4>Products</h4>
@@ -52,7 +52,6 @@ const Order = () => {
                   ))}
                 </p>
               </div>
-
               <div className="order-col">
                 <h4>User Info</h4>
                 <p><strong>Name:</strong> {order.userName}</p>
@@ -60,13 +59,11 @@ const Order = () => {
                 <p><strong>City:</strong> {order.userCity}</p>
                 <p><strong>Phone:</strong> {order.userPhone}</p>
               </div>
-
               <div className="order-col">
                 <h4>Details</h4>
                 <p><strong>Total:</strong> ${order.finalPrice}</p>
                 <p><strong>Date:</strong> {new Date(order.orderDate).toLocaleString()}</p>
               </div>
-
               <div className="order-col">
                 <h4>Status</h4>
                 <p>

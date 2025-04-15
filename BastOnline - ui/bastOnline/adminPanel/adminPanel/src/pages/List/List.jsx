@@ -7,14 +7,27 @@ const List = () => {
   const [products, setProducts] = useState([]);
   const [editProductId, setEditProductId] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     listProducts();
   }, []);
 
+  const getAuthHeader = () => {
+    const token = localStorage.getItem("token");
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  };
+
   const listProducts = () => {
-    axios.get('http://localhost:8080/api/admin/getProducts')
-      .then((res) => setProducts(res.data))
+    axios.get('http://localhost:8080/api/admin/getProducts', getAuthHeader())
+      .then((res) => {
+        const sorted = [...res.data].sort((a, b) => a.name.localeCompare(b.name));
+        setProducts(sorted);
+      })
       .catch((err) => {
         console.error(err);
         toast.error("Error: can't fetch products");
@@ -22,7 +35,7 @@ const List = () => {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8080/api/admin/deleteProduct/${id}`)
+    axios.delete(`http://localhost:8080/api/admin/deleteProduct/${id}`, getAuthHeader())
       .then(() => {
         toast.success('Deleted successfully!');
         setProducts(products.filter((p) => p.id !== id));
@@ -49,6 +62,7 @@ const List = () => {
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     const formData = new FormData();
 
     const productData = new Blob([JSON.stringify({
@@ -67,8 +81,10 @@ const List = () => {
 
     try {
       await axios.put(`http://localhost:8080/api/admin/updateProduct/${editProductId}`, formData, {
+        ...getAuthHeader(),
         headers: {
-          "Content-Type": "multipart/form-data"
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
       toast.success("Updated successfully!");
@@ -78,6 +94,8 @@ const List = () => {
     } catch (error) {
       console.error("Error updating product", error);
       toast.error("Error: can't update");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -142,14 +160,22 @@ const List = () => {
                       )}
                     </>
                   ) : (
-                    <img className="product-image" src={product.imagePath || '/default-image.jpg'} alt={product.name} />
+                    <img
+                      className="product-image"
+                      src={product.imagePath ? product.imagePath : "/default-image.jpg"}
+                      alt={product.name}
+                    />
                   )}
                 </td>
                 <td>
                   {editProductId === product.id ? (
                     <>
-                      <button className="btn save-btn" onClick={handleSave}>Save</button>
-                      <button className="btn cancel-btn" onClick={handleCancel} style={{ marginLeft: "10px" }}>Cancel</button>
+                      <button className="btn save-btn" onClick={handleSave} disabled={isSaving}>
+                        {isSaving ? "Saving..." : "Save"}
+                      </button>
+                      <button className="btn cancel-btn" onClick={handleCancel} style={{ marginLeft: "10px" }}>
+                        Cancel
+                      </button>
                     </>
                   ) : (
                     <>
