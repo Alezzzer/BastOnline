@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const LoginPopup = ({ setShowLogin, onLoginSuccess }) => {
+const LoginPopup = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Log in");
   const { login } = useContext(StoreContext);
 
@@ -55,9 +55,10 @@ const LoginPopup = ({ setShowLogin, onLoginSuccess }) => {
       }
 
       login(user, accessToken);
+
+      // Samo zatvori popup, navigacija se dešava u Cart.js useEffect-u
       setTimeout(() => {
         setShowLogin(false);
-        onLoginSuccess();
       }, 300);
 
     } catch (err) {
@@ -129,11 +130,12 @@ const LoginPopup = ({ setShowLogin, onLoginSuccess }) => {
         </button>
 
         {currState === "Sign up" && (
-  <div className="login-popup-condition">
-    <input type="checkbox" required />
-    <p>By continuing, I agree to the terms of use & privacy policy.</p>
-  </div>
-)}
+          <div className="login-popup-condition">
+            <input type="checkbox" required />
+            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          </div>
+        )}
+
         {currState === "Log in" ? (
           <p>
             Create a new account?{" "}

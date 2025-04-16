@@ -40,10 +40,13 @@ const Cart = () => {
   useEffect(() => {
     if (user && showLoginPopup) {
       setShowLoginPopup(false);
-      navigate("/checkout");
+  
+      // Sačekaj 500ms da se prikaže toast pre nego što ide navigate
+      setTimeout(() => {
+        navigate("/checkout");
+      }, 500);
     }
   }, [user]);
-
   return (
     <div className="cart">
       <div className="cart-items-title">
