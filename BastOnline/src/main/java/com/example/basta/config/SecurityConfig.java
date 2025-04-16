@@ -62,24 +62,10 @@ public class SecurityConfig {
 	public CommandLineRunner loadDefaultRoles(RoleRepository roleRepository) {
 	    return args -> {
 	        if (roleRepository.findAll().isEmpty()) {
-	            roleRepository.save(new Role(null, "ADMIN"));
-	            roleRepository.save(new Role(null, "USER")); // recimo da ovaj dobije ID = 2
+	            roleRepository.save(new Role(null, "ROLE_ADMIN"));
+	            roleRepository.save(new Role(null, "ROLE_USER")); 
 	        }
 	    };
 	}
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		UserDetails admin = User.builder()
-//				.username("admin")
-//				.password(passwordEncoder().encode("password"))
-//				.roles("ADMIN","MANAGER")
-//				.build();
-//		
-//		UserDetails petra = User.builder()
-//				.username("petra")
-//				.password(passwordEncoder().encode("password"))
-//				.roles("USER")
-//				.build();
-//		return new InMemoryUserDetailsManager(admin, petra);
-//	}
+
 }

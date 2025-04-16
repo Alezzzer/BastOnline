@@ -87,7 +87,7 @@ public class ManagerServiceImplementation implements ManagerService {
 
        
         emailService.sendOrderApprovedEmail(userEmail, userName);
-        return getOrder(id); // reuse the logic
+        return getOrder(id); 
     }
 
     private OrderItemDto mapToOrderItemDto(OrderItem item) {

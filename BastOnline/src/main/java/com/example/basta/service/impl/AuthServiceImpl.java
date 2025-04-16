@@ -54,12 +54,7 @@ public class AuthServiceImpl implements AuthService{
 			    user.setRole(defaultRole);
 
 			    ur.save(user);
-//		Set<Role> roles = new HashSet<>();
-//		Role userRole = rr.findByName("USER");
-//		roles.add(userRole);
-//		user.setRoles(roles);
-//		
-//		ur.save(user);
+
 		return "Successfully registration!";
 		
 	}
@@ -69,7 +64,7 @@ public class AuthServiceImpl implements AuthService{
 	    User user = ur.findByEmail(usernameOrEmail)
 	            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-	    return mapToDto(user); // Koristi helper metodu ispod
+	    return mapToDto(user); 
 	}
 
 	private UserDto mapToDto(User user) {

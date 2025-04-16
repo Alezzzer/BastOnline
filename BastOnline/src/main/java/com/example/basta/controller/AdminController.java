@@ -41,7 +41,7 @@ public class AdminController {
 	        ProductDto savedProduct = aService.addProduct(productDto, imageFile);
 	        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
 	    } catch (Exception e) {
-	        e.printStackTrace(); // korisno za debug
+	        e.printStackTrace(); 
 	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}

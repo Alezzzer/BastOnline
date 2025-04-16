@@ -216,7 +216,7 @@ public class UserServiceImpl implements UserService {
     private OrderItemDto mapToOrderItemDto(OrderItem item) {
         OrderItemDto dto = new OrderItemDto();
         dto.setId(item.getId());
-        dto.setProduct(modelMapper.map(item.getProduct(), ProductDto.class)); // ovo sad radi
+        dto.setProduct(modelMapper.map(item.getProduct(), ProductDto.class)); 
         dto.setQuantity(item.getQuantity());
         dto.setPrice(item.getPrice());
         return dto;

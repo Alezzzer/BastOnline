@@ -86,7 +86,7 @@ public class AdminServiceImplementation implements AdminService {
 		    product.setPrice(productDto.getPrice());
 
 		    if (imageFile != null && !imageFile.isEmpty()) {
-		        // Obriši staru sliku ako postoji
+		        
 		        if (product.getImagePath() != null) {
 		            File oldImage = new File(product.getImagePath());
 		            if (oldImage.exists()) {
@@ -94,7 +94,7 @@ public class AdminServiceImplementation implements AdminService {
 		            }
 		        }
 
-		        // Sačuvaj novu sliku
+		      
 		        String imageName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
 		        File dir = new File(imageDirectory);
 		        if (!dir.exists()) {

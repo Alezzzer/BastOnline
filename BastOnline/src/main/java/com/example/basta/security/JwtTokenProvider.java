@@ -35,7 +35,7 @@ public class JwtTokenProvider {
 
 	        return Jwts.builder()
 	            .setSubject(username)
-	            .claim("roles", authorities) // <- dodajemo role kao claim
+	            .claim("roles", authorities)
 	            .setIssuedAt(currentDate)
 	            .setExpiration(expireDate)
 	            .signWith(key(), ALGORITHM)
