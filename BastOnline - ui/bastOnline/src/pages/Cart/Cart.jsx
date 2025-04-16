@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { assets } from "../../assets/assets";
-import LoginPopup from "../../components/LoginPopup/LoginPopup"; // prilagodi path ako treba
+import LoginPopup from "../../components/LoginPopup/LoginPopup";
 import "./Cart.css";
 
 const Cart = () => {
@@ -33,6 +32,17 @@ const Cart = () => {
       alert("Your cart is empty!");
     }
   };
+
+  const handleLoginSuccess = () => {
+    // Navigacija se dešava u useEffect kad se user setuje
+  };
+
+  useEffect(() => {
+    if (user && showLoginPopup) {
+      setShowLoginPopup(false);
+      navigate("/checkout");
+    }
+  }, [user]);
 
   return (
     <div className="cart">
@@ -94,7 +104,9 @@ const Cart = () => {
               <b>Total</b>
               <b>${totalAmount.toFixed(2)}</b>
             </div>
-            <button onClick={handleProceedToCheckout}>Proceed to Checkout</button>
+            <button onClick={handleProceedToCheckout}>
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       ) : (
@@ -103,7 +115,12 @@ const Cart = () => {
         </div>
       )}
 
-      {showLoginPopup && <LoginPopup setShowLogin={setShowLoginPopup} />}
+      {showLoginPopup && (
+        <LoginPopup
+          setShowLogin={setShowLoginPopup}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      )}
     </div>
   );
 };

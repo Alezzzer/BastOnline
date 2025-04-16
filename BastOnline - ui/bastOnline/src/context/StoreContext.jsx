@@ -1,11 +1,15 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import jwtDecode from "jwt-decode"; // ispravno bez { } — jer nije export default
+import jwtDecode from "jwt-decode";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem("cartItems");
+    return savedCart ? JSON.parse(savedCart) : {};
+  });
+
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -27,27 +31,26 @@ const StoreContextProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
+  // 🔁 Load token from URL or localStorage on first render
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get("token");
     console.log("🔍 TOKEN from URL:", tokenFromUrl);
-  
+
     if (tokenFromUrl) {
       localStorage.setItem("token", tokenFromUrl);
       const cleanUrl = window.location.origin + window.location.pathname;
       window.history.replaceState({}, document.title, cleanUrl);
     }
-  
-    // ⬇️ OVO JE NOVO: fallback na "admin-token"
+
     const savedToken = localStorage.getItem("token") || localStorage.getItem("admin-token");
     const savedUser = localStorage.getItem("user");
-    console.log("📦 LocalStorage token:", savedToken);
-  
+
     if (savedToken) {
       try {
         const decoded = jwtDecode(savedToken);
         const now = Date.now() / 1000;
-  
+
         if (decoded.exp > now) {
           setToken(savedToken);
           setUser(savedUser ? JSON.parse(savedUser) : decoded);
@@ -61,7 +64,7 @@ const StoreContextProvider = ({ children }) => {
     }
   }, []);
 
-  // 🛒 Products
+  // 🛒 Fetch products on load
   useEffect(() => {
     axios.get("http://localhost:8080/api/admin/getProducts")
       .then((res) => {
@@ -77,12 +80,17 @@ const StoreContextProvider = ({ children }) => {
       });
   }, []);
 
+  // 💾 Snimi cartItems u localStorage svaki put kad se promene
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const initializeCart = (productList) => {
-    const cart = {};
+    const initial = {};
     productList.forEach(p => {
-      cart[p.id] = 0;
+      initial[p.id] = cartItems[p.id] || 0;
     });
-    setCartItems(cart);
+    setCartItems(initial);
   };
 
   const addToCart = (itemId) => {
@@ -142,7 +150,4 @@ const StoreContextProvider = ({ children }) => {
 };
 
 export default StoreContextProvider;
-import { useContext } from "react";
-
-
 export const useStore = () => useContext(StoreContext);

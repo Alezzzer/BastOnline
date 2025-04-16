@@ -28,13 +28,8 @@ public class Product {
 	private double price;
 	private String category;
 	private String description;
-
-    // Umesto ovoga:
-    // @Lob
-    // @Column(columnDefinition = "LONGBLOB")
-    // private byte[] image;
-
-    // Stavi ovo:
+	@Column(name = "deleted")
+	private Boolean deleted;
     @Column(name = "image_path")
-    private String imagePath;  // npr: "images/1712592839203_tomato.jpg"
+    private String imagePath;  
 }

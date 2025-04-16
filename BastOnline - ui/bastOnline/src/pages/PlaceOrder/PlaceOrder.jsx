@@ -23,11 +23,10 @@ const PlaceOrder = () => {
   const userId = user?.id;
 
   useEffect(() => {
-    if (!userId) {
-      toast.warn("Please log in to place an order.");
-      navigate("/login");
+    if (!userId) 
+      
       return;
-    }
+    
 
     axios.get(`http://localhost:8080/api/farm/myprofile/${userId}`)
       .then(res => {

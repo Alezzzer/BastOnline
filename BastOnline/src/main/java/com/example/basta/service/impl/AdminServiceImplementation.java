@@ -40,7 +40,7 @@ public class AdminServiceImplementation implements AdminService {
     @Override
     public ProductDto addProduct(ProductDto productDto, MultipartFile imageFile) throws IOException {
         Product product = modelMapper.map(productDto, Product.class);
-
+        product.setDeleted(false);
         if (imageFile != null && !imageFile.isEmpty()) {
             String imageName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
             File dir = new File(imageDirectory);
@@ -135,7 +135,8 @@ public class AdminServiceImplementation implements AdminService {
             }
         }
 
-        pr.deleteById(id);
+        product.setDeleted(true);
+        pr.save(product);
     }
 
     @Override
@@ -155,7 +156,7 @@ public class AdminServiceImplementation implements AdminService {
     @Override
     public List<ProductDto> getAllProducts() {
         List<ProductDto> listProductDto = new ArrayList<>();
-        List<Product> listProduct = pr.findAll();
+        List<Product> listProduct = pr.findByDeletedFalse();
 
         for (Product p : listProduct) {
             ProductDto pTemp = modelMapper.map(p, ProductDto.class);

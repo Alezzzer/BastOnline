@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/assets';
-import { useStore } from '../../context/StoreContext';
+import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, onLoginSuccess }) => {
   const [currState, setCurrState] = useState("Log in");
-  const { login } = useStore();
+  const { login } = useContext(StoreContext);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -55,7 +55,10 @@ const LoginPopup = ({ setShowLogin }) => {
       }
 
       login(user, accessToken);
-      setShowLogin(false);
+      setTimeout(() => {
+        setShowLogin(false);
+        onLoginSuccess();
+      }, 300);
 
     } catch (err) {
       toast.error("Something went wrong");
@@ -125,11 +128,12 @@ const LoginPopup = ({ setShowLogin }) => {
           {currState === "Sign up" ? "Create account" : "Log in"}
         </button>
 
-        <div className="login-popup-condition">
-          <input type="checkbox" required />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
-
+        {currState === "Sign up" && (
+  <div className="login-popup-condition">
+    <input type="checkbox" required />
+    <p>By continuing, I agree to the terms of use & privacy policy.</p>
+  </div>
+)}
         {currState === "Log in" ? (
           <p>
             Create a new account?{" "}
