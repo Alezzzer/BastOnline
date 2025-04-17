@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import { assets } from "../../assets/assets";
@@ -19,13 +19,18 @@ const Cart = () => {
   const totalAmount = getTotalCartAmount();
 
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
   const handleProceedToCheckout = () => {
+   
+    if (user === undefined) {
+      console.log("⏳ Waiting for user status...");
+      return;
+    }
+  
     if (!user) {
       setShowLoginPopup(true);
       return;
     }
-
+  
     if (totalAmount > 0) {
       navigate("/checkout");
     } else {
@@ -34,19 +39,12 @@ const Cart = () => {
   };
 
   const handleLoginSuccess = () => {
-    
+    setShowLoginPopup(false);
+    setTimeout(() => {
+      navigate("/checkout");
+    }, 300);
   };
 
-  useEffect(() => {
-    if (user && showLoginPopup) {
-      setShowLoginPopup(false);
-  
-      
-      setTimeout(() => {
-        navigate("/checkout");
-      }, 500);
-    }
-  }, [user]);
   return (
     <div className="cart">
       <div className="cart-items-title">

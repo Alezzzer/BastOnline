@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, onLoginSuccess }) => {
   const [currState, setCurrState] = useState("Log in");
   const { login } = useContext(StoreContext);
 
@@ -26,7 +26,7 @@ const LoginPopup = ({ setShowLogin }) => {
       ...prev,
       [name]: value
     }));
-    setErrorMessage(""); 
+    setErrorMessage("");
   };
 
   const handleSubmit = async (e) => {
@@ -61,13 +61,16 @@ const LoginPopup = ({ setShowLogin }) => {
 
       login(user, accessToken);
 
+      if (onLoginSuccess) {
+        onLoginSuccess(); // 🔥 Ključni deo
+      }
+
       setTimeout(() => {
         setShowLogin(false);
       }, 300);
     } catch (err) {
       console.error("Auth error:", err);
 
-      
       if (err.response) {
         const message = err.response.data.message?.toLowerCase() || "";
 
@@ -87,8 +90,6 @@ const LoginPopup = ({ setShowLogin }) => {
       } else {
         setErrorMessage("Something went wrong. Please try again.");
       }
-
-     
     }
   };
 

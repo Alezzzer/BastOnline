@@ -15,6 +15,13 @@ const PlaceOrder = () => {
     user,
   } = useContext(StoreContext);
 
+  useEffect(() => {
+    if (user === undefined) return; 
+    if (!user) {
+      navigate("/"); 
+    }
+  }, [user]);
+
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState({});
   const [isEdited, setIsEdited] = useState(false);
