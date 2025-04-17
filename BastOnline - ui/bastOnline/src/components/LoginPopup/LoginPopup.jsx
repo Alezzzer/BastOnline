@@ -67,7 +67,7 @@ const LoginPopup = ({ setShowLogin }) => {
     } catch (err) {
       console.error("Auth error:", err);
 
-      // Ako imamo server response
+      
       if (err.response) {
         const message = err.response.data.message?.toLowerCase() || "";
 
