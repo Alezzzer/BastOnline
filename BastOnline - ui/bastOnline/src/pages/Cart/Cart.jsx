@@ -34,14 +34,14 @@ const Cart = () => {
   };
 
   const handleLoginSuccess = () => {
-    // Navigacija se dešava u useEffect kad se user setuje
+    
   };
 
   useEffect(() => {
     if (user && showLoginPopup) {
       setShowLoginPopup(false);
   
-      // Sačekaj 500ms da se prikaže toast pre nego što ide navigate
+      
       setTimeout(() => {
         navigate("/checkout");
       }, 500);

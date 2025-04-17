@@ -18,12 +18,15 @@ const LoginPopup = ({ setShowLogin }) => {
     phone: ''
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+    setErrorMessage(""); 
   };
 
   const handleSubmit = async (e) => {
@@ -40,6 +43,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
         accessToken = response.data.accessToken || response.data.token;
         user = response.data.user;
+
         toast.success("Login successful");
       } else {
         await axios.post("http://localhost:8080/api/auth/register", formData);
@@ -51,19 +55,40 @@ const LoginPopup = ({ setShowLogin }) => {
 
         accessToken = loginResponse.data.accessToken || loginResponse.data.token;
         user = loginResponse.data.user;
+
         toast.success("Registration and login successful");
       }
 
       login(user, accessToken);
 
-      // Samo zatvori popup, navigacija se dešava u Cart.js useEffect-u
       setTimeout(() => {
         setShowLogin(false);
       }, 300);
-
     } catch (err) {
-      toast.error("Something went wrong");
       console.error("Auth error:", err);
+
+      // Ako imamo server response
+      if (err.response) {
+        const message = err.response.data.message?.toLowerCase() || "";
+
+        if (currState === "Log in") {
+          if (message.includes("invalid") || message.includes("bad credentials")) {
+            setErrorMessage("Incorrect email or password.");
+          } else {
+            setErrorMessage("Login failed. Please try again.");
+          }
+        } else {
+          if (message.includes("email") && message.includes("already")) {
+            setErrorMessage("Email is already in use.");
+          } else {
+            setErrorMessage("Registration failed. Please try again.");
+          }
+        }
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+      }
+
+     
     }
   };
 
@@ -129,6 +154,8 @@ const LoginPopup = ({ setShowLogin }) => {
           {currState === "Sign up" ? "Create account" : "Log in"}
         </button>
 
+        {errorMessage && <p className="login-popup-error">{errorMessage}</p>}
+
         {currState === "Sign up" && (
           <div className="login-popup-condition">
             <input type="checkbox" required />
@@ -139,12 +166,18 @@ const LoginPopup = ({ setShowLogin }) => {
         {currState === "Log in" ? (
           <p>
             Create a new account?{" "}
-            <span onClick={() => setCurrState("Sign up")}>Click here</span>
+            <span onClick={() => {
+              setCurrState("Sign up");
+              setErrorMessage("");
+            }}>Click here</span>
           </p>
         ) : (
           <p>
             Already have an account?{" "}
-            <span onClick={() => setCurrState("Log in")}>Log in here</span>
+            <span onClick={() => {
+              setCurrState("Log in");
+              setErrorMessage("");
+            }}>Log in here</span>
           </p>
         )}
       </form>

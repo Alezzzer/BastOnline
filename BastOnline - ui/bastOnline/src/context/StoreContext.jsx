@@ -14,7 +14,7 @@ const StoreContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
-  // 🔐 Login
+  
   const login = (userData, jwtToken) => {
     setUser(userData);
     setToken(jwtToken);
@@ -23,7 +23,7 @@ const StoreContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(userData));
   };
 
-  // 🚪 Logout
+ 
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -31,7 +31,7 @@ const StoreContextProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
-  // 🔁 Load token from URL or localStorage on first render
+ 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get("token");
@@ -64,7 +64,7 @@ const StoreContextProvider = ({ children }) => {
     }
   }, []);
 
-  // 🛒 Fetch products on load
+ 
   useEffect(() => {
     axios.get("http://localhost:8080/api/admin/getProducts")
       .then((res) => {
@@ -80,7 +80,7 @@ const StoreContextProvider = ({ children }) => {
       });
   }, []);
 
-  // 💾 Snimi cartItems u localStorage svaki put kad se promene
+ 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);

@@ -32,7 +32,7 @@ th, td {
   white-space: nowrap;
 }
 
-/* Inputs and selects */
+
 input[type="text"], input[type="number"], select {
   width: 100%;
   max-width: 100%;
@@ -45,14 +45,14 @@ input[type="file"] {
   font-size: 14px;
 }
 
-/* Product image */
+
 .product-image {
   width: 80px;
   height: 80px;
   object-fit: cover;
 }
 
-/* Buttons */
+
 .btn {
   padding: 8px 14px;
   border-radius: 6px;

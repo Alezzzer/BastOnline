@@ -1,13 +1,13 @@
 .login-popup {
-    position: fixed; /* fiksirano u odnosu na prozor */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: #00000090;
     display: grid;
-    place-items: center; /* centriraj horizontalno i vertikalno */
-    z-index: 999; /* da bude iznad ostalog */
+    place-items: center; 
+    z-index: 999; 
 }
 
 .login-popup-container{
@@ -17,7 +17,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     padding: 25px 30px;
     border-radius: 8px;
     font-size: 14px;
@@ -77,3 +77,10 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.login-popup-error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }

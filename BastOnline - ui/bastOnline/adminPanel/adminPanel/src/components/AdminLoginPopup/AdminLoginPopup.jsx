@@ -1,8 +1,8 @@
-// src/components/AdminLoginPopup.jsx
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import './AdminLoginPopup.css'; // koristi isti stil kao login-popup
+import './AdminLoginPopup.css'; 
 
 const AdminLoginPopup = ({ onSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -33,7 +33,7 @@ const AdminLoginPopup = ({ onSuccess }) => {
       localStorage.setItem("user", JSON.stringify(user));
 
       toast.success("Admin login successful!");
-      onSuccess(); // prikaz App-a
+      onSuccess(); 
 
     } catch (err) {
       console.error("Login failed:", err);

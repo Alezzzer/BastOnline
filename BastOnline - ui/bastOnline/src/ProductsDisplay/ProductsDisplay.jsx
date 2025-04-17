@@ -4,7 +4,7 @@ import ProductItem from '../components/ProductItem/ProductItem';
 import { StoreContext } from '../context/StoreContext';
 
 const ProductsDisplay = ({ category, searchQuery = "" }) => {
-    const { products } = useContext(StoreContext); // UZMI IZ KONTEKSTA
+    const { products } = useContext(StoreContext);
 
     return (
         <div className='products-display' id='products-display'>
@@ -21,7 +21,7 @@ const ProductsDisplay = ({ category, searchQuery = "" }) => {
                             name={item.name}
                             description={item.description}
                             price={item.price}
-                            image={item.imagePath || '/default-image.jpg'} // koristi imagePath
+                            image={item.imagePath || '/default-image.jpg'} 
                             category={item.category}
                         />
                     ))}

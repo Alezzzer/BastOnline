@@ -37,7 +37,7 @@
     margin-top: 10px;
     padding: 12px 0;
     width: 100%;
-    background-color: #4CAF50; /* zelena kao ORDER dugme */
+    background-color: #4CAF50; 
     color: white;
     border: none;
     border-radius: 8px;
@@ -85,7 +85,7 @@
     margin-top: 20px;
     width: 100%;
     padding: 12px 0;
-    background-color: #4CAF50; /* zelena */
+    background-color: #4CAF50; 
     color: white;
     border: none;
     border-radius: 8px;

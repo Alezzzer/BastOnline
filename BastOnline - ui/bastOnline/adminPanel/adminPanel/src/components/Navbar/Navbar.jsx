@@ -6,12 +6,12 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
-    // 🧹 Očisti admin sesiju
+    
     localStorage.removeItem("token");
     localStorage.removeItem("admin-token");
     localStorage.removeItem("user");
 
-    // 🔁 Prebaci nazad na user panel
+    
     window.location.replace("http://localhost:3001/");
   };
 
